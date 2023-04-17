@@ -1,17 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 import { persistStore, persistReducer } from 'redux-persist'
+import whatsAppReducer from '../reducers/whatsAppReducer'
 
 const persistConfig = { 
     storage: storage,
     key: 'root',
   }
 
-const combinedReducer = combineReducers({ //keeping as combineReducers so that if we scale the project they can be easily added here
-    movies: whatsAppReducer,
+const combinedReducer = combineReducers({ 
+    whatsApp: whatsAppReducer,
 })
 
-const persistedReducer = persistReducer(persistConfig, combinedReducer) //so that storage persists
+const persistedReducer = persistReducer(persistConfig, combinedReducer)
 
 const store = configureStore({
     reducer: persistedReducer,

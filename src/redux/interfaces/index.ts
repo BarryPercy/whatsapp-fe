@@ -1,4 +1,8 @@
-interface Store {
+export interface RootState {
+    whatsApp: whatsAppState;
+}
+
+export interface whatsAppState {
     userInfo: {
         _id: string
         name: string
@@ -9,4 +13,13 @@ interface Store {
         active: string // the _id of one of the chats among store.chats.list	
         list: Chat[]
     }
+}
+
+interface Chat {
+
+}
+
+export interface willDelete{
+    type:"WILL_DELETE";
+    payload: string;
 }
