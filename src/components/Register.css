@@ -1,0 +1,61 @@
+hr {
+  height: 1px;
+  background-color: #25D366;
+  border: none;
+}
+
+.registerButton{
+  width: 20rem;
+  background-color: #25D366;
+}
+
+.whatsappLogo{
+  height: 10em;
+  background-color: #25D366;
+  color: white;
+  
+}
+
+.F618{
+ width: 15em;
+ height: 15em;
+ 
+}
+
+.logoText{
+  font-size: 1.7em;
+}
+
+p {
+  position: relative;
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
+.one {
+  margin-top: 0;
+}
+
+.one:before {
+  content: "";
+  display: block;
+  border-top: solid 1px grey;
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
+
+.one span {
+  background: #fff;
+  padding: 0 20px;
+  position: relative;
+  z-index: 5;
+}
+
+
+main {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 800px;
+}
