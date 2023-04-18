@@ -17,10 +17,19 @@ export interface whatsAppState {
   };
 }
 
+export interface UserState {
+  user: User | null;
+}
+
 export interface Chat {
   _id: string;
   members: User[];
   messages: Message[];
+}
+
+export interface setUserInfo {
+  type: "SET_USER_INFO";
+  payload: User;
 }
 
 export interface Message {
@@ -38,11 +47,6 @@ export interface User {
   name: string;
   email: string;
   avatar?: string;
-}
-
-export interface setUserInfo {
-  type: "SET_USER_INFO";
-  payload: User;
 }
 
 export interface setChats {
@@ -70,5 +74,18 @@ export interface newMessage {
   payload: {
     chatId: string;
     message: Message;
+    members: User[];
   };
+}
+
+export interface UserRegistration {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface UserLogin {
+  name: string;
+  email: string;
+  password: string;
 }
