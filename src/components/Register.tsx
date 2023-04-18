@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-import "./Register.css";
+import "../css/Register.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Register = () => {
@@ -10,7 +10,7 @@ const Register = () => {
         <Row className="justify-content-md-center">
           <Col xs={12} md={6}>
             <div className="whatsappLogo text-center">
-            <i className="bi bi-whatsapp mt-3"></i>
+              <i className="bi bi-whatsapp mt-3"></i>
               {/*<svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -61,10 +61,12 @@ const Register = () => {
               </div>
             </Form>
             <main>
-            <p className="one mt-4"><span>or sign up with</span></p>
-            <i className="bi bi-google"></i>
-            <i className="bi bi-facebook"></i>
-            <i className="bi bi-instagram"></i>
+              <p className="one mt-4">
+                <span>or sign up with</span>
+              </p>
+              <i className="bi bi-google"></i>
+              <i className="bi bi-facebook"></i>
+              <i className="bi bi-instagram"></i>
             </main>
           </Col>
         </Row>
