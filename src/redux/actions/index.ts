@@ -90,7 +90,8 @@ export const newMessage = (message:Message, users: User[]): AppThunk => async (d
         type: "NEW_MESSAGE",
         payload:{
           chatId:res.chatId,
-          message: message
+          message: message,
+          members: users
         }
       })
     }

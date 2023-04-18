@@ -17,7 +17,7 @@ export interface whatsAppState {
     }
 }
 
-interface Chat {
+export interface Chat {
     _id: string
 	members: User[]
 	messages: Message[]
@@ -70,6 +70,7 @@ export interface newMessage {
     payload: {
         chatId: string, 
         message: Message
+        members: User[]
     };
 }
 

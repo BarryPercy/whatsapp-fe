@@ -43,7 +43,11 @@ const whatsAppReducer = (state = initialState, action: Action) => {
                 chats: { ...state.chats, list: updatedList },
             };
         case 'NEW_MESSAGE':
-            
+
+            return{
+                ...state,
+                chats: {...state.chats, list:[...state.chats.list,{_id: action.payload.chatId, members:action.payload.members, messages: [action.payload.message]} ]}
+            }
         default:
             return state
     }
