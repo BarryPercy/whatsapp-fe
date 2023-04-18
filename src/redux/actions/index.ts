@@ -1,18 +1,26 @@
-import { AppThunk } from '../../types'; 
-import { User, Message } from "../interfaces"
+
+import { AppThunk } from '../../types'; //needed correct typing for running actions with dispatch
+import { User, Message, UserRegistration, UserLogin } from "../interfaces"
+import axios from 'axios';
+
+
+
+
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CHATS = "SET_CHATS";
 export const SET_ACTIVE_CHAT = "SET_ACTIVE_CHAT";
 export const SET_HISTORY = "SET_HISTORY";
 export const NEW_MESSAGE = "NEW_MESSAGE";
 
+
 export const setUserInfo = (accessToken: string): AppThunk => async (dispatch) => {
+
   try {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`)
     if (response.ok){
       const user = await response.json();
       dispatch({
-        type: "SET_USER_INFO",
+        type: SET_USER_INFO,
         payload: user
       })
     }
@@ -21,7 +29,38 @@ export const setUserInfo = (accessToken: string): AppThunk => async (dispatch) =
   }
 }
 
-export const setChats = (accessToken: string): AppThunk => async (dispatch) => {
+
+export const registrationUser = (data: UserRegistration): any => async (dispatch: any) => {
+  try {
+    const response = await axios.post("/users/account", data)
+   
+      dispatch({
+        type: "SET_USER_INFO",
+        payload: response.data.user
+      })
+   localStorage.setItem("token", response.data.token)
+
+  } catch (error){
+    console.log(error)
+  }
+}
+
+export const loginUser = (data: UserLogin): any => async (dispatch: any) => {
+  try {
+    const response = await axios.post("/users/session", data)
+   
+      dispatch({
+        type: "SET_USER_INFO",
+        payload: response.data.user
+      })
+   localStorage.setItem("token", response.data.token)
+
+  } catch (error){
+    console.log(error)
+  }
+}
+
+export const setChats = (): AppThunk => async (dispatch) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats/`)
     if (response.ok){
