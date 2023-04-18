@@ -18,13 +18,19 @@ export interface whatsAppState {
 }
 
 interface Chat {
-    messages: Message[];
-    otherUser: User;
+    _id: string
+	members: User[]
+	messages: Message[]
 }
 
-export interface setUserInfo{
-    type:"SET_USER_INFO";
-    payload: User;
+export interface Message {
+    _id: string
+	sender: User
+	content: {
+		text?: string
+		media?: string
+	}
+	timestamp: number
 }
 
 export interface User {
@@ -32,6 +38,11 @@ export interface User {
     name: string
     email: string
     avatar?: string
+}
+
+export interface setUserInfo{
+    type:"SET_USER_INFO";
+    payload: User;
 }
 
 export interface setChats {
@@ -60,10 +71,5 @@ export interface newMessage {
         chatId: string, 
         message: Message
     };
-}
-
-export interface Message {
-    currentUser: boolean;
-    message: string;
 }
 
