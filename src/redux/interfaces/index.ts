@@ -22,6 +22,7 @@ export interface UserState {
 }
 
 interface Chat {
+
   messages: Message[];
   otherUser: User;
 }
@@ -29,6 +30,19 @@ interface Chat {
 export interface setUserInfo {
   type: "SET_USER_INFO";
   payload: User;
+    _id: string
+	members: User[]
+	messages: Message[]
+}
+
+export interface Message {
+    _id: string
+	sender: User
+	content: {
+		text?: string
+		media?: string
+	}
+	timestamp: number
 }
 
 export interface User {
@@ -37,6 +51,7 @@ export interface User {
   email: string;
   avatar?: string;
 }
+
 
 export interface setChats {
   type: "SET_CHATS";
@@ -66,10 +81,7 @@ export interface newMessage {
   };
 }
 
-export interface Message {
-  currentUser: boolean;
-  message: string;
-}
+
 
 
 export interface UserRegistration {
