@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { Card, DropdownButton, Modal, Row } from "react-bootstrap";
+import { useState } from "react";
+import { Card, Modal } from "react-bootstrap";
 import "../css/Sidebar.css";
+import { useAppSelector } from "../redux/hooks/index";
+import { whatsAppState } from "../redux/interfaces";
 
 function Sidebar() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const toggleShow = () => setShow((s) => !s);
+  const chats = useAppSelector(
+    (state) => (state.whatsApp as whatsAppState).chats.list
+  );
+
   return (
     <>
       <button onClick={toggleShow}></button>
@@ -46,10 +51,12 @@ function Sidebar() {
               <i className="bi bi-filter"></i>
             </Card.Header>
           </Card>
-          [mapEveryChat adding a row] eg
-          <Row>[Hi]</Row>
-          <Row>[Hi]</Row>
-          <Row>[Hi]</Row>
+          {chats.map((chat) => (
+            <h1 key={chat._id}>
+              {chat.members[0].name}
+              {chat.messages[0].content.text}
+            </h1>
+          ))}
         </Modal.Body>
       </Modal>
     </>
