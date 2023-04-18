@@ -1,17 +1,26 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useSearchParams } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Register from './components/Register';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import { useEffect } from 'react';
 
 function App() {
+  const [queryParams] = useSearchParams()
+  useEffect(()=>{
+    if(queryParams.get("accessToken")){
+      localStorage.setItem("token", queryParams.get("accessToken") as string)
+      console.log(queryParams.get("accessToken"))
+    }
+  }, [])
   return (
     <>
-     <BrowserRouter>
-     <Register/>
+     
       <Routes>
-        <Route path="/register" element={<Register />} />
+        <Route path="/session" element={<Login />} />
+        <Route path="/account" element={<Register />} />
       </Routes>
-    </BrowserRouter>
+    
     </>
   );
 }

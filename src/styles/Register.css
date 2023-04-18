@@ -16,14 +16,16 @@ hr {
   
 }
 
-.F618{
- width: 15em;
- height: 15em;
- 
+.topLogo{
+ font-size: 5em;
+}
+
+.signUpLogo{
+ font-size: 2.8em;
 }
 
 .logoText{
-  font-size: 1.7em;
+  font-size: 1.5em;
 }
 
 p {
