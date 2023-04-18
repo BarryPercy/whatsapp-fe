@@ -8,7 +8,7 @@ export const NEW_MESSAGE = "NEW_MESSAGE";
 
 export const setUserInfo = (): AppThunk => async (dispatch) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`) //NEED TO EDIT
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`)
     if (response.ok){
       const user = await response.json();
       dispatch({
@@ -23,12 +23,12 @@ export const setUserInfo = (): AppThunk => async (dispatch) => {
 
 export const setChats = (): AppThunk => async (dispatch) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats/mine`) //NEED TO EDIT
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats/`)
     if (response.ok){
-      const chats = await response.json();
+      const res = await response.json();
       dispatch({
         type: "SET_CHATS",
-        payload:chats
+        payload:res.chats
       })
     }
   } catch (error) {
@@ -55,12 +55,12 @@ export const setHistory = (id:string): AppThunk => async (dispatch) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats/${id}`) //NEED TO EDIT
     if (response.ok){
-      const messages = await response.json();
+      const res = await response.json();
       dispatch({
         type: "SET_HISTORY",
         payload:{
           chatId:id,
-          history: messages
+          history: res.messages
         }
       })
     }
@@ -71,7 +71,7 @@ export const setHistory = (id:string): AppThunk => async (dispatch) => {
 
 export const newMessage = (id:string, message:Message): AppThunk => async (dispatch) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats/${id}`,//NEED TO EDIT
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats}`,//NEED TO EDIT
       {
         method: "POST",
         body: JSON.stringify(message),
@@ -80,8 +80,10 @@ export const newMessage = (id:string, message:Message): AppThunk => async (dispa
         }
       }
     ) 
-    if (response.ok){
-      const messages = await response.json();
+    if( response.status === 200 ){
+      
+    } else if( response.status === 201) {
+      const message = await response.json();
       dispatch({
         type: "NEW_MESSAGE",
         payload:{
