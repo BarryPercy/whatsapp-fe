@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, Container, Row } from "react-bootstrap";
 import "../css/Sidebar.css";
 import Profile from "./Profile";
 import { useAppSelector } from "../redux/hooks";
-import { setChats } from "../redux/interfaces/index";
+import { whatsAppState } from "../redux/interfaces/index";
 function Sidebar() {
   const [showProfile, setShowProfile] = useState(false);
 
-  const allChats = useAppSelector((state) => state.whatsApp as setChats)
-    ?.payload?.chats;
+  const allChats = useAppSelector((state) => state.whatsApp as whatsAppState).chats.list
+  const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
   const handleProfileClick = () => {
     setShowProfile(true);
   };
@@ -16,6 +16,10 @@ function Sidebar() {
   const handleProfileClose = () => {
     setShowProfile(false);
   };
+  useEffect(()=>{
+    console.log(allChats)
+    console.log(theUser)
+  },[])
 
   return (
     <>

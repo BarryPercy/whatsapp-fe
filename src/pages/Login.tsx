@@ -3,20 +3,32 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 //import "./Login.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { loginUser } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setUserInfo } from "../redux/actions";
+import { access } from "fs";
 
 const Login = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showSidebar, setShowSideBar] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loginHandler = (e: React.SyntheticEvent) => {
+  const loginHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ name, email, password }));
-    navigate("/main")
+    console.log("email and password", email, password)
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/session`, {email, password})
+      if (response.status >= 200 && response.status <= 299){
+        navigate("/main")
+        localStorage.setItem('accessToken', JSON.stringify(response.data.token));
+        const accessToken = JSON.parse(localStorage.getItem('accessToken')!.toString());
+        dispatch(setUserInfo(accessToken))
+        navigate("/main")
+      }
+    } catch (error){
+      console.log(error)
+    }
   };
   return (
     <>
@@ -29,18 +41,6 @@ const Login = () => {
             </div>
             <Form onSubmit={loginHandler}>
               <h5 className="text-center mt-4 mb-4">Log in</h5>
-
-              <Form.Group controlId="formPhoneNumber" className="mb-3">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Form.Group>
-
-              <hr />
 
               <Form.Group controlId="formBasicEmail" className="mb-3">
                 <Form.Label>Email address</Form.Label>
@@ -71,7 +71,6 @@ const Login = () => {
                   variant="success"
                   type="submit"
                   className="registerButton"
-                  onClick={() => setShowSideBar(true)}
                 >
                   Login
                 </Button>
