@@ -91,7 +91,6 @@ const Login = () => {
           </Col>
         </Row>
       </Container>
-      {showSidebar && <Sidebar show={true} />}
     </>
   );
 };
