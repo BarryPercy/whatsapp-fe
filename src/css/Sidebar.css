@@ -1,19 +1,17 @@
-.modal-dialog {
+.sidebar {
   padding: 0;
   margin: 0;
   width: 21.15rem;
 }
-.modal-content {
-  border: none;
-}
-div.modal-body {
+.container.sidebar > .container {
   padding: 0;
   background-color: #111b21;
   width: 21.1rem;
   height: 100vh;
   border-radius: 0px;
 }
-.modal-title {
+.container.sidebar > .container > .row {
+  width: 104%;
   position: relative;
   color: white;
   top: auto;
@@ -28,7 +26,7 @@ div.modal-body {
   align-items: center;
   justify-content: center;
 }
-.modal i {
+.sidebar i {
   cursor: pointer;
 }
 .card {
@@ -39,12 +37,6 @@ div.modal-body {
   margin-left: 0.7rem;
   background-color: #202c33;
   color: #8696a0;
-}
-div.modal-header {
-  color: white;
-  background-color: #202c33;
-  border-radius: 0px;
-  height: 3.7rem;
 }
 
 #sideOthers {

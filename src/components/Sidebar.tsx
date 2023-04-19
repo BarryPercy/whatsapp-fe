@@ -1,19 +1,21 @@
-import { useState } from "react";
-import { Card, Modal } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Card, Container, Modal, Row } from "react-bootstrap";
 import "../css/Sidebar.css";
-import { useAppSelector } from "../redux/hooks/index";
-import { whatsAppState } from "../redux/interfaces";
 import Profile from "./Profile";
+import { setChats } from "../redux/actions";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import whatsAppReducer from "../redux/reducers/whatsAppReducer";
 type SidebarProps = {
   show: boolean;
 };
 function Sidebar({ show }: SidebarProps) {
-  const [showProfile, setShowProfile] = useState(false); // new state variable
+  const [showProfile, setShowProfile] = useState(false);
   const [showSidebar, setShowSideBar] = useState(show);
   const handleClose = () => setShowSideBar(false);
-  const chats = useAppSelector(
-    (state) => (state.whatsApp as whatsAppState).chats.list
-  );
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setChats());
+  }, [dispatch]);
 
   const handleProfileClick = () => {
     setShowProfile(true);
@@ -25,14 +27,9 @@ function Sidebar({ show }: SidebarProps) {
 
   return (
     <>
-      <Modal
-        show={showSidebar}
-        onHide={handleClose}
-        animation={false}
-        backdrop={false}
-      >
-        <Modal.Body>
-          <Modal.Title>
+      <Container className="sidebar">
+        <Container>
+          <Row>
             <div id="sideAvatar">
               <i
                 className="bi bi-person-circle"
@@ -46,7 +43,7 @@ function Sidebar({ show }: SidebarProps) {
               <i className="bi bi-chat-left-text-fill"></i>
               <i className="bi bi-three-dots-vertical"></i>
             </div>
-          </Modal.Title>
+          </Row>
           <Card>
             <Card.Header>
               <div id="sideSearch">
@@ -62,14 +59,8 @@ function Sidebar({ show }: SidebarProps) {
               <i className="bi bi-filter"></i>
             </Card.Header>
           </Card>
-          {chats.map((chat) => (
-            <h1 key={chat._id}>
-              {chat.members[0].name}
-              {chat.messages[0].content.text}
-            </h1>
-          ))}
-        </Modal.Body>
-      </Modal>
+        </Container>
+      </Container>
       <Profile show={showProfile} onHide={handleProfileClose} />
     </>
   );
