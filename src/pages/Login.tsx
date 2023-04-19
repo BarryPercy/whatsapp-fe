@@ -3,21 +3,32 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 //import "./Login.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { loginUser } from "../redux/actions";
-import { useDispatch } from "react-redux";
-import Sidebar from "../components/Sidebar";
+import { useAppDispatch } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setUserInfo } from "../redux/actions";
+import { access } from "fs";
 
 const Login = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showSidebar, setShowSideBar] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loginHandler = (e: React.SyntheticEvent) => {
+  const loginHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
-    navigate("/main")
+    console.log("email and password", email, password)
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/session`, {email, password})
+      if (response.status >= 200 && response.status <= 299){
+        navigate("/main")
+        localStorage.setItem('accessToken', JSON.stringify(response.data.token));
+        const accessToken = JSON.parse(localStorage.getItem('accessToken')!.toString());
+        dispatch(setUserInfo(accessToken))
+        navigate("/main")
+      }
+    } catch (error){
+      console.log(error)
+    }
   };
   return (
     <>
@@ -60,7 +71,6 @@ const Login = () => {
                   variant="success"
                   type="submit"
                   className="registerButton"
-                  onClick={() => setShowSideBar(true)}
                 >
                   Login
                 </Button>

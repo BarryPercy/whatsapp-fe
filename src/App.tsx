@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   useSearchParams,
+  Navigate
 } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,8 +23,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/session" element={<Login />} />
-        <Route path="/account" element={<Register />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/main" element={<Main />} />
       </Routes>
     </>

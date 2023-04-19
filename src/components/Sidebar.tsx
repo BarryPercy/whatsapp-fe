@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
-import { Card, Container, Modal, Row } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Card, Container, Row } from "react-bootstrap";
 import "../css/Sidebar.css";
 import Profile from "./Profile";
-import { setChats } from "../redux/actions";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import whatsAppReducer from "../redux/reducers/whatsAppReducer";
-type SidebarProps = {
-  show: boolean;
-};
-function Sidebar({ show }: SidebarProps) {
+import { useAppSelector } from "../redux/hooks";
+import { whatsAppState } from "../redux/interfaces/index";
+function Sidebar() {
   const [showProfile, setShowProfile] = useState(false);
-  const [showSidebar, setShowSideBar] = useState(show);
-  const handleClose = () => setShowSideBar(false);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(setChats());
-  }, [dispatch]);
 
+  const allChats = useAppSelector((state) => state.whatsApp as whatsAppState).chats.list
+  const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
   const handleProfileClick = () => {
     setShowProfile(true);
   };
@@ -24,6 +16,10 @@ function Sidebar({ show }: SidebarProps) {
   const handleProfileClose = () => {
     setShowProfile(false);
   };
+  useEffect(()=>{
+    console.log(allChats)
+    console.log(theUser)
+  },[])
 
   return (
     <>
@@ -59,6 +55,24 @@ function Sidebar({ show }: SidebarProps) {
               <i className="bi bi-filter"></i>
             </Card.Header>
           </Card>
+          {allChats &&
+            allChats.map((chat, index) => (
+              <div key={index} className="historyCard">
+                <div id="historyAvatar">
+                  {chat.members[chat.members.length - 1].avatar}
+                </div>
+                <div id="historyRest">
+                  <h2 id="historyName">
+                    {chat.members[chat.members.length - 1].name}
+                  </h2>
+                  <h3 id="historyMessage">
+                    <span>
+                      {chat.messages[chat.messages.length - 1].content.text}
+                    </span>
+                  </h3>
+                </div>
+              </div>
+            ))}
         </Container>
       </Container>
       <Profile show={showProfile} onHide={handleProfileClose} />

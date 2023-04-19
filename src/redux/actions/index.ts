@@ -16,9 +16,16 @@ export const NEW_MESSAGE = "NEW_MESSAGE";
 export const setUserInfo = (accessToken: string): AppThunk => async (dispatch) => {
 
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`)
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users/me`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
     if (response.ok){
       const user = await response.json();
+      console.log(user)
       dispatch({
         type: SET_USER_INFO,
         payload: user
@@ -32,7 +39,7 @@ export const setUserInfo = (accessToken: string): AppThunk => async (dispatch) =
 
 export const registrationUser = (data: UserRegistration): any => async (dispatch: any) => {
   try {
-    const response = await axios.post("/users/account", data)
+    const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/account`, data)
    
       dispatch({
         type: "SET_USER_INFO",
@@ -47,7 +54,7 @@ export const registrationUser = (data: UserRegistration): any => async (dispatch
 
 export const loginUser = (data: UserLogin): any => async (dispatch: any) => {
   try {
-    const response = await axios.post("/users/session", data)
+    const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/session`, data)
    
       dispatch({
         type: "SET_USER_INFO",
