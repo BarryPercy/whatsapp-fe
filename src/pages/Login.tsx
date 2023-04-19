@@ -5,6 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { loginUser } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import Sidebar from "../components/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -12,9 +13,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showSidebar, setShowSideBar] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loginHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUser({ name, email, password }));
+    navigate("/main")
   };
   return (
     <>
