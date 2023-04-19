@@ -7,7 +7,6 @@ import {
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./pages/Register";
-import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
 import { useEffect } from "react";
 
@@ -21,14 +20,10 @@ function App() {
   }, []);
   return (
     <>
-      <BrowserRouter>
-        <Sidebar />
-        <Register />
-        <Routes>
-          <Route path="/session" element={<Login />} />
-          <Route path="/account" element={<Register />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/session" element={<Login />} />
+        <Route path="/account" element={<Register />} />
+      </Routes>
     </>
   );
 }

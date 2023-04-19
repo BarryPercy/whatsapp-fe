@@ -4,23 +4,25 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { loginUser } from "../redux/actions";
 import { useDispatch } from "react-redux";
+import Sidebar from "../components/Sidebar";
 
 const Login = () => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const dispatch = useDispatch()
- const loginHandler = (e: React.SyntheticEvent) => {
-  e.preventDefault()
-  dispatch(loginUser({name, email, password}))
- }
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showSidebar, setShowSideBar] = useState(false);
+  const dispatch = useDispatch();
+  const loginHandler = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(loginUser({ name, email, password }));
+  };
   return (
     <>
       <Container>
         <Row className="justify-content-md-center">
           <Col xs={12} md={6}>
             <div className="whatsappLogo text-center">
-            <i className="bi bi-whatsapp topLogo"></i>
+              <i className="bi bi-whatsapp topLogo"></i>
               <div className="logoText">Whatsapp</div>
             </div>
             <Form onSubmit={loginHandler}>
@@ -28,14 +30,24 @@ const Login = () => {
 
               <Form.Group controlId="formPhoneNumber" className="mb-3">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="Your name" value={name} onChange={(e)=> setName(e.target.value)}  />
+                <Form.Control
+                  type="text"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </Form.Group>
 
               <hr />
 
               <Form.Group controlId="formBasicEmail" className="mb-3">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=> setEmail(e.target.value)}  />
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </Form.Group>
 
               <hr />
@@ -46,7 +58,8 @@ const Login = () => {
                   type="password"
                   placeholder="Password"
                   className="mb-3"
-                  value={password} onChange={(e)=> setPassword(e.target.value)} 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Group>
 
@@ -56,20 +69,26 @@ const Login = () => {
                   variant="success"
                   type="submit"
                   className="registerButton"
+                  onClick={() => setShowSideBar(true)}
                 >
                   Login
                 </Button>
               </div>
             </Form>
             <main>
-            <p className="one mt-4"><span>or login with</span></p>
-            <a href={`${process.env.REACT_APP_BE_URL}/users/auth/google`}><i className="bi bi-google signUpLogo mx-3"></i></a>
-            <i className="bi bi-facebook signUpLogo mx-3"></i>
-            <i className="bi bi-instagram signUpLogo mx-3"></i>
+              <p className="one mt-4">
+                <span>or login with</span>
+              </p>
+              <a href={`${process.env.REACT_APP_BE_URL}/users/auth/google`}>
+                <i className="bi bi-google signUpLogo mx-3"></i>
+              </a>
+              <i className="bi bi-facebook signUpLogo mx-3"></i>
+              <i className="bi bi-instagram signUpLogo mx-3"></i>
             </main>
           </Col>
         </Row>
       </Container>
+      {showSidebar && <Sidebar show={true} />}
     </>
   );
 };

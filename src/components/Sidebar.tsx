@@ -3,20 +3,30 @@ import { Card, Modal } from "react-bootstrap";
 import "../css/Sidebar.css";
 import { useAppSelector } from "../redux/hooks/index";
 import { whatsAppState } from "../redux/interfaces";
-
-function Sidebar() {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const toggleShow = () => setShow((s) => !s);
+import Profile from "./Profile";
+type SidebarProps = {
+  show: boolean;
+};
+function Sidebar({ show }: SidebarProps) {
+  const [showProfile, setShowProfile] = useState(false); // new state variable
+  const [showSidebar, setShowSideBar] = useState(show);
+  const handleClose = () => setShowSideBar(false);
   const chats = useAppSelector(
     (state) => (state.whatsApp as whatsAppState).chats.list
   );
 
+  const handleProfileClick = () => {
+    setShowProfile(true);
+  };
+
+  const handleProfileClose = () => {
+    setShowProfile(false);
+  };
+
   return (
     <>
-      <button onClick={toggleShow}></button>
       <Modal
-        show={show}
+        show={showSidebar}
         onHide={handleClose}
         animation={false}
         backdrop={false}
@@ -27,6 +37,7 @@ function Sidebar() {
               <i
                 className="bi bi-person-circle"
                 style={{ fontSize: "30px" }}
+                onClick={handleProfileClick} // update the click handler
               ></i>
             </div>
             <div id="sideOthers">
@@ -59,6 +70,7 @@ function Sidebar() {
           ))}
         </Modal.Body>
       </Modal>
+      <Profile show={showProfile} onHide={handleProfileClose} />
     </>
   );
 }
