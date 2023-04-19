@@ -16,7 +16,7 @@ const Login = () => {
   const loginHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUser({ name, email, password }));
-    navigate("/main");
+    navigate("/main")
   };
   return (
     <>

@@ -4,15 +4,26 @@ import "../css/Register.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useDispatch } from "react-redux";
 import { registrationUser } from "../redux/actions";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const registrationHandler = (e: React.SyntheticEvent) => {
+  const navigate = useNavigate();
+  const registrationHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(registrationUser({ name, email, password }));
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/account`, {name,email,password})
+      if (response.status >= 200 && response.status <= 299){
+        navigate("/login")
+      }
+  
+    } catch (error){
+      console.log(error)
+    }
   };
   return (
     <>
@@ -76,7 +87,7 @@ const Register = () => {
               <p className="one mt-4">
                 <span>or sign up with</span>
               </p>
-              <a href={`${process.env.REACT_APP_BE_URL}/users/auth/google`}>
+              <a href={`${process.env.REACT_APP_BACKEND}/users/auth/google`}>
                 <i className="bi bi-google signUpLogo mx-3"></i>
               </a>
               <i className="bi bi-facebook signUpLogo mx-3"></i>
