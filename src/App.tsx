@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { useEffect } from "react";
+import Main from "./components/Main";
 
 function App() {
   const [queryParams] = useSearchParams();
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/session" element={<Login />} />
         <Route path="/account" element={<Register />} />
+        <Route path="/main" element={<Main />} />
       </Routes>
     </>
   );
