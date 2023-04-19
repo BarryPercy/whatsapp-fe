@@ -6,7 +6,7 @@ const Main = ()=>{
     return(
         <Row className="d-flex ">
             <Col>
-                <   Sidebar show={true}/>
+                <Sidebar/>
             </Col>
             <Col>
                 <ActiveChat/>
