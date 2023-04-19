@@ -43,12 +43,20 @@ div.modal-header {
   height: 17.313rem;
   border-bottom: none;
 }
-#profileAvatar {
-  width: 15.625rem;
+#pfpAvatar {
+  cursor: pointer;
+  max-width: 15rem;
+  max-height: 15rem;
   aspect-ratio: 1;
   position: absolute;
   left: 12%;
   border-radius: 50%;
+  filter: brightness(100%);
+  transition: filter 0.2s ease-in-out;
+}
+#pfpAvatar:hover {
+  content: "";
+  filter: brightness(80%);
 }
 #nameChange > div {
   display: flex;
@@ -83,4 +91,29 @@ div.modal-header {
   background-color: transparent;
   border: none;
   color: #8696a0 !important;
+}
+
+#hidden {
+  position: relative;
+  z-index: 1;
+  top: 0;
+  left: 7rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+#profileAvatar:hover #hidden {
+  opacity: 100;
+}
+#hiddenCam {
+  position: absolute;
+  font-size: 3rem;
+  top: 5rem;
+  left: 0rem;
+}
+#hiddenText {
+  position: absolute;
+  top: 9rem;
+  left: 0rem;
+  font-size: 0.7rem;
+  width: 5rem;
 }

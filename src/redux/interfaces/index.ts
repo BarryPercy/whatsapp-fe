@@ -10,6 +10,7 @@ export interface whatsAppState {
     name: string;
     email: string;
     avatar?: string;
+    status?: string;
   };
   chats: {
     active: string; // the _id of one of the chats among store.chats.list
@@ -29,6 +30,10 @@ export interface Chat {
 
 export interface setUserInfo {
   type: "SET_USER_INFO";
+  payload: User;
+}
+export interface updateUserInfo {
+  type: "UPDATE_USER_INFO";
   payload: User;
 }
 

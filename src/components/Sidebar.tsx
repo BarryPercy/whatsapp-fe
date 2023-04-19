@@ -2,13 +2,24 @@ import { useState, useEffect } from "react";
 import { Card, Container, Row } from "react-bootstrap";
 import "../css/Sidebar.css";
 import Profile from "./Profile";
-import { useAppSelector } from "../redux/hooks";
-import { whatsAppState } from "../redux/interfaces/index";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { Chat, whatsAppState } from "../redux/interfaces/index";
+import { setChats } from "../redux/actions";
+import NewChat from "./NewChat";
 function Sidebar() {
+  const accessToken = JSON.parse(
+    localStorage.getItem("accessToken")!.toString()
+  );
   const [showProfile, setShowProfile] = useState(false);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setChats(accessToken));
+  }, [accessToken]);
+  const allChats =
+    useAppSelector((state) => state.whatsApp as whatsAppState)?.chats?.list ||
+    [];
+  const theUser = useAppSelector((state) => state.whatsApp as whatsAppState);
 
-  const allChats = useAppSelector((state) => state.whatsApp as whatsAppState).chats.list
-  const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
   const handleProfileClick = () => {
     setShowProfile(true);
   };
@@ -16,10 +27,6 @@ function Sidebar() {
   const handleProfileClose = () => {
     setShowProfile(false);
   };
-  useEffect(()=>{
-    console.log(allChats)
-    console.log(theUser)
-  },[])
 
   return (
     <>
@@ -55,27 +62,20 @@ function Sidebar() {
               <i className="bi bi-filter"></i>
             </Card.Header>
           </Card>
-          {allChats &&
-            allChats.map((chat, index) => (
-              <div key={index} className="historyCard">
-                <div id="historyAvatar">
-                  {chat.members[chat.members.length - 1].avatar}
-                </div>
-                <div id="historyRest">
-                  <h2 id="historyName">
-                    {chat.members[chat.members.length - 1].name}
-                  </h2>
-                  <h3 id="historyMessage">
-                    <span>
-                      {chat.messages[chat.messages.length - 1].content.text}
-                    </span>
-                  </h3>
-                </div>
-              </div>
-            ))}
+          {allChats && allChats.length > 0 ? (
+            allChats.map((chat: Chat, index: number) => {
+              return <NewChat key={index} chatInfo={chat} />;
+            })
+          ) : (
+            <div id="nochat">No chats found!</div>
+          )}
         </Container>
       </Container>
-      <Profile show={showProfile} onHide={handleProfileClose} />
+      <Profile
+        userInfo={theUser}
+        show={showProfile}
+        onHide={handleProfileClose}
+      />
     </>
   );
 }
