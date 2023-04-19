@@ -16,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const loginHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ name, email, password }));
+    dispatch(loginUser({ email, password }));
     navigate("/main")
   };
   return (
@@ -30,18 +30,6 @@ const Login = () => {
             </div>
             <Form onSubmit={loginHandler}>
               <h5 className="text-center mt-4 mb-4">Log in</h5>
-
-              <Form.Group controlId="formPhoneNumber" className="mb-3">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Form.Group>
-
-              <hr />
 
               <Form.Group controlId="formBasicEmail" className="mb-3">
                 <Form.Label>Email address</Form.Label>
