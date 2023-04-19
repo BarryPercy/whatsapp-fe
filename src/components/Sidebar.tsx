@@ -54,9 +54,13 @@ function Sidebar() {
           {allChats &&
             allChats.map((chat, index) => (
               <div key={index} className="historyCard">
-                <div id="historyAvatar">{chat.members[index].avatar}</div>
+                <div id="historyAvatar">
+                  {chat.members[chat.members.length - 1].avatar}
+                </div>
                 <div id="historyRest">
-                  <h2 id="historyName">{chat.members[index].name}</h2>
+                  <h2 id="historyName">
+                    {chat.members[chat.members.length - 1].name}
+                  </h2>
                   <h3 id="historyMessage">
                     <span>
                       {chat.messages[chat.messages.length - 1].content.text}
