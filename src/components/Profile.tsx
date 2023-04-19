@@ -1,4 +1,5 @@
 import { Modal } from "react-bootstrap";
+import "../css/Profile.css";
 
 type ProfileProps = {
   show: boolean;
