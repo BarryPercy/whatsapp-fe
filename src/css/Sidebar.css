@@ -97,3 +97,40 @@ input#chatSearch:focus ~ .bi.bi-arrow-right {
   visibility: visible;
   transform: rotate(180deg);
 }
+.historyCard {
+  width: 100%;
+  height: 7vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+#historyAvatar {
+  left: 0;
+  margin-left: 1.5rem;
+  width: 50px;
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#historyRest {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  left: 25%;
+}
+#historyName {
+  width: 50px;
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  top: 0%;
+}
+#historyMessage {
+  width: 50px;
+  aspect-ratio: 1 / 1;
+  position: absolute;
+  top: 50%;
+}

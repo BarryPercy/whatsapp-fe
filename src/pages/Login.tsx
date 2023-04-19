@@ -4,7 +4,6 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { loginUser } from "../redux/actions";
 import { useDispatch } from "react-redux";
-import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -17,7 +16,7 @@ const Login = () => {
   const loginHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(loginUser({ name, email, password }));
-    navigate("/main")
+    navigate("/main");
   };
   return (
     <>

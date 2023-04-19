@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useSearchParams,
-} from "react-router-dom";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./pages/Register";
@@ -22,8 +17,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/session" element={<Login />} />
-        <Route path="/account" element={<Register />} />
+        <Route path="users/session" element={<Login />} />
+        <Route path="users/account" element={<Register />} />
         <Route path="/main" element={<Main />} />
       </Routes>
     </>
