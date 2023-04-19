@@ -3,7 +3,6 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import "../css/Register.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useDispatch } from "react-redux";
-import { registrationUser } from "../redux/actions";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

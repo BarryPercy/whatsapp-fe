@@ -36,37 +36,6 @@ export const setUserInfo = (accessToken: string): AppThunk => async (dispatch) =
   }
 }
 
-
-export const registrationUser = (data: UserRegistration): any => async (dispatch: any) => {
-  try {
-    const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/account`, data)
-   
-      dispatch({
-        type: "SET_USER_INFO",
-        payload: response.data.user
-      })
-   localStorage.setItem("token", response.data.token)
-
-  } catch (error){
-    console.log(error)
-  }
-}
-
-export const loginUser = (data: UserLogin): any => async (dispatch: any) => {
-  try {
-    const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/session`, data)
-   
-      dispatch({
-        type: "SET_USER_INFO",
-        payload: response.data.user
-      })
-   localStorage.setItem("token", response.data.token)
-
-  } catch (error){
-    console.log(error)
-  }
-}
-
 export const setChats = (): AppThunk => async (dispatch) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats/`)

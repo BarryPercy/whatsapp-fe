@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
 //import "./Login.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { loginUser } from "../redux/actions";
 import { useAppDispatch } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
