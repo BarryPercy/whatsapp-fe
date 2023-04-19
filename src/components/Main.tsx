@@ -1,9 +1,7 @@
-import Sidebar from "./Sidebar"
+import Sidebar from "./Sidebar";
 
-const Main = ()=>{
-    return(
-        <Sidebar show={true}/>
-    )
-}
+const Main = () => {
+  return <Sidebar show={true} />;
+};
 
-export default Main
+export default Main;

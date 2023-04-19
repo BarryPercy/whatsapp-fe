@@ -22,7 +22,6 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Sidebar show={true} />} />
         <Route path="/session" element={<Login />} />
         <Route path="/account" element={<Register />} />
         <Route path="/main" element={<Main />} />
