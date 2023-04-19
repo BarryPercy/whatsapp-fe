@@ -17,10 +17,9 @@ div.modal-body {
   position: relative;
   color: white;
   top: auto;
-  margin-bottom: 0;
+  left: 0;
   background-color: #202c33;
-  padding-top: 0.5rem;
-  height: 3.7rem;
+  height: 6.75rem;
   line-height: 0px;
   display: flex;
   flex-direction: row;
@@ -28,80 +27,60 @@ div.modal-body {
   align-items: center;
   justify-content: center;
 }
+#title {
+  margin-right: 11rem;
+}
+#title > i {
+  margin-right: 2rem;
+}
 .modal i {
   cursor: pointer;
 }
-.card {
-  position: relative;
-  height: 2.265rem;
-  width: 84.5%;
-  margin-top: 0.5rem;
-  margin-left: 0.7rem;
-  background-color: #202c33;
-  color: #8696a0;
-}
 div.modal-header {
+  position: relative;
   color: white;
-  background-color: #202c33;
   border-radius: 0px;
-  height: 3.7rem;
+  height: 17.313rem;
+  border-bottom: none;
+}
+#profileAvatar {
+  width: 15.625rem;
+  aspect-ratio: 1;
+  position: absolute;
+  left: 12%;
+  border-radius: 50%;
+}
+#nameChange > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+#nameChange > div span {
+  margin-bottom: 1.5rem;
 }
 
-#sideOthers {
-  margin-left: 1.5rem;
+#about > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
-#sideOthers i {
-  font-size: smaller;
-  margin-left: 2.2rem;
+#bottomPart i {
+  cursor: pointer;
 }
-#chatSearch {
-  background-color: #202c33;
-  color: #8696a0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 80%;
+#bottomPart input {
+  background-color: transparent;
   border: none;
-  transition: all 0.2s ease-in-out;
+  border-bottom: 1px solid #8696a0;
+  color: white;
+  margin-bottom: 1.5rem;
 }
-.bi.bi-search {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-left: 1rem;
-  margin-top: 0.3rem;
-  z-index: 1;
-  transition: all 0.2s ease-in-out;
-}
-.bi.bi-filter {
-  position: absolute;
-  right: -1.7rem;
-  top: 0.3rem;
-}
-.bi.bi-arrow-right {
-  font-weight: bold;
-  font-size: larger;
-  color: #00a884;
-  visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-left: 1rem;
-  margin-top: 0.3rem;
-  z-index: 1;
-  transform: rotate(90deg);
-  transition: all 0.2s ease-in-out;
-}
-
-input#chatSearch:focus::placeholder {
-  color: transparent;
-}
-input#chatSearch:focus ~ .bi.bi-search {
-  opacity: 0;
-  visibility: hidden;
-}
-input#chatSearch:focus ~ .bi.bi-arrow-right {
-  visibility: visible;
-  transform: rotate(180deg);
+.checkBtn {
+  background-color: transparent;
+  border: none;
+  color: #8696a0 !important;
 }
