@@ -18,7 +18,7 @@ const Login = () => {
     console.log("email and password", email, password);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND}/users/login`,
+        `${process.env.REACT_APP_BACKEND}/users/session`,
         { email, password }
       );
       if (response.status >= 200 && response.status <= 299) {
