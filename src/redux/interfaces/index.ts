@@ -32,6 +32,11 @@ export interface setUserInfo {
   type: "SET_USER_INFO";
   payload: User;
 }
+
+export interface setUserAvatar {
+  type: "SET_USER_AVATAR";
+  payload: string;
+}
 export interface updateUserInfo {
   type: "UPDATE_USER_INFO";
   payload: User;

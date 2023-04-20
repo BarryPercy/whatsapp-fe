@@ -3,7 +3,8 @@ import "../css/Profile.css";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { User, whatsAppState } from "../redux/interfaces";
 import { useState } from "react";
-import { updateUserInfo } from "../redux/actions";
+import { updateUserInfo, uploadUserAvatar } from "../redux/actions";
+import { upload } from "@testing-library/user-event/dist/upload";
 
 type ProfileProps = {
   show: boolean;
@@ -14,8 +15,9 @@ type ProfileProps = {
 function Profile({ userInfo, show, onHide }: ProfileProps) {
   console.log(userInfo.userInfo.avatar);
   const user = useAppSelector((state) => state.whatsApp as User);
-  const [name, setName] = useState(user.name);
-  const [status, setStatus] = useState(user.status);
+  console.log(user)
+  const [name, setName] = useState(userInfo.userInfo.name);
+  const [status, setStatus] = useState(userInfo.userInfo.status);
   const [nameEditMode, setNameEditMode] = useState(false);
   const [statusEditMode, setStatusEditMode] = useState(false);
   const accessToken = JSON.parse(
@@ -41,6 +43,13 @@ function Profile({ userInfo, show, onHide }: ProfileProps) {
     setStatusEditMode(false);
   }
 
+
+  const uploadAvatarHandler = (event: React.ChangeEvent<HTMLInputElement>) =>  {
+    const file = event.target?.files?.[0]
+    console.log(file)
+    dispatch(uploadUserAvatar(file))
+  }
+
   return (
     <>
       <Modal show={show} backdrop={false} id="profileModal">
@@ -60,9 +69,10 @@ function Profile({ userInfo, show, onHide }: ProfileProps) {
                 id="pfpAvatar"
               />{" "}
               <div id="hidden">
-                <span id="hiddenCam">
+                <label id="hiddenCam" htmlFor="uploadAvatar">
                   <i className="bi bi-camera-fill"></i>
-                </span>
+                </label>
+                <input type="file" id="uploadAvatar" hidden onChange={uploadAvatarHandler}/>
                 <span id="hiddenText">CHANGE PROFILE PHOTO</span>
               </div>
             </div>

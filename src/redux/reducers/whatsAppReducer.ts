@@ -6,6 +6,7 @@ import {
   setHistory,
   newMessage,
   updateUserInfo,
+  setUserAvatar,
 } from "../interfaces/index";
 
 type Action =
@@ -14,7 +15,8 @@ type Action =
   | setActiveChat
   | setHistory
   | newMessage
-  | updateUserInfo;
+  | updateUserInfo
+  | setUserAvatar
 
 const initialState: whatsAppState = {
   userInfo: {
@@ -82,6 +84,14 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         ...state,
         currentUser: action.payload,
       };
+      case "SET_USER_AVATAR":
+        return {
+          ...state,
+          userInfo: {
+            ...state.userInfo,
+            avatar: action.payload
+          },
+        };
     default:
       return state;
   }
