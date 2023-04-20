@@ -15,7 +15,7 @@ const Register = () => {
   const registrationHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/account`, {name,email,password})
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/register`, {name,email,password})
       if (response.status >= 200 && response.status <= 299){
         navigate("/login")
       }
