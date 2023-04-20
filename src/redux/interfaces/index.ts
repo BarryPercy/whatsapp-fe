@@ -12,16 +12,23 @@ export interface whatsAppState {
     avatar?: string;
     status?: string;
   };
+  otherUserInfo: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar?: string;
+    status?: string;
+  };
+  allUsers: {
+    list: User[];
+  };
   chats: {
     active: string; // the _id of one of the chats among store.chats.list
     list: Chat[];
   };
-<<<<<<< Updated upstream
-=======
   fetchedUser: {
-    user: User;
+    user: User[];
   };
->>>>>>> Stashed changes
 }
 
 export interface UserState {
@@ -38,9 +45,28 @@ export interface setUserInfo {
   type: "SET_USER_INFO";
   payload: User;
 }
+export interface setOtherUserInfo {
+  type: "OTHER_USER";
+  payload: User;
+}
+
+export interface setUserAvatar {
+  type: "SET_USER_AVATAR";
+  payload: string;
+}
 export interface updateUserInfo {
   type: "UPDATE_USER_INFO";
   payload: User;
+}
+export interface getUser {
+  type: "GET_USER_INFO";
+  payload: User[];
+}
+export interface getUsers {
+  type: "GET_USERS_INFO";
+  payload: {
+    users: User[];
+  };
 }
 
 export interface Message {
@@ -57,6 +83,7 @@ export interface User {
   _id: string;
   name: string;
   email: string;
+  role?: string;
   avatar?: string;
   status?: string;
 }
@@ -97,7 +124,6 @@ export interface UserRegistration {
 }
 
 export interface UserLogin {
-  name: string;
   email: string;
   password: string;
 }

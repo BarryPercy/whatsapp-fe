@@ -6,6 +6,10 @@ import {
   setHistory,
   newMessage,
   updateUserInfo,
+  setUserAvatar,
+  getUsers,
+  getUser,
+  setOtherUserInfo,
 } from "../interfaces/index";
 
 type Action =
@@ -14,7 +18,11 @@ type Action =
   | setActiveChat
   | setHistory
   | newMessage
-  | updateUserInfo;
+  | updateUserInfo
+  | setUserAvatar
+  | getUsers
+  | getUser
+  | setOtherUserInfo;
 
 const initialState: whatsAppState = {
   userInfo: {
@@ -23,22 +31,22 @@ const initialState: whatsAppState = {
     email: "",
     avatar: "",
   },
+  otherUserInfo: {
+    _id: "",
+    name: "",
+    email: "",
+    avatar: "",
+  },
+  allUsers: {
+    list: [],
+  },
   chats: {
     active: "",
     list: [],
   },
-<<<<<<< Updated upstream
-=======
   fetchedUser: {
-    user: {
-      _id: "",
-      name: "",
-      email: "",
-      status: "",
-      avatar: "",
-    },
+    user: [],
   },
->>>>>>> Stashed changes
 };
 
 const whatsAppReducer = (state = initialState, action: Action) => {
@@ -48,24 +56,22 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         ...state,
         userInfo: action.payload,
       };
-<<<<<<< Updated upstream
-=======
     case "OTHER_USER":
       return {
         ...state,
         otherUserInfo: action.payload,
       };
     case "GET_USER_INFO":
+      console.log(action.payload);
       return {
         ...state,
-        fetchedUser: { user: action.payload },
+        userInfo: { user: action.payload },
       };
     case "GET_USERS_INFO":
       return {
         ...state,
         allUsers: { ...state, list: action.payload },
       };
->>>>>>> Stashed changes
     case "SET_CHATS":
       return {
         ...state,
@@ -102,7 +108,6 @@ const whatsAppReducer = (state = initialState, action: Action) => {
             {
               _id: action.payload.chatId,
               members: action.payload.members,
-              messages: [action.payload.message],
             },
           ],
         },
@@ -111,6 +116,14 @@ const whatsAppReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         currentUser: action.payload,
+      };
+    case "SET_USER_AVATAR":
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          avatar: action.payload,
+        },
       };
     default:
       return state;

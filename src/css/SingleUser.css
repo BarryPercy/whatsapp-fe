@@ -1,0 +1,11 @@
+#singleAvatar {
+  max-width: 3.125rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.modal-content {
+  background-color: #111b21;
+}
+.status {
+  font-size: small;
+}

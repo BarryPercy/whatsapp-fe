@@ -15,17 +15,8 @@ const Login = () => {
   const navigate = useNavigate();
   const loginHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log("email and password", email, password)
+    console.log("email and password", email, password);
     try {
-<<<<<<< Updated upstream
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/session`, {email, password})
-      if (response.status >= 200 && response.status <= 299){
-        navigate("/main")
-        localStorage.setItem('accessToken', JSON.stringify(response.data.token));
-        const accessToken = JSON.parse(localStorage.getItem('accessToken')!.toString());
-        dispatch(setUserInfo(accessToken))
-        navigate("/main")
-=======
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND}/users/login`,
         { email, password }
@@ -41,10 +32,9 @@ const Login = () => {
         );
         dispatch(setUserInfo(accessToken));
         navigate("/main");
->>>>>>> Stashed changes
       }
-    } catch (error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -97,7 +87,7 @@ const Login = () => {
               <p className="one mt-4">
                 <span>or login with</span>
               </p>
-              <a href={`${process.env.REACT_APP_BE_URL}/users/auth/google`}>
+              <a href={`${process.env.REACT_APP_BACKEND}/users/auth/google`}>
                 <i className="bi bi-google signUpLogo mx-3"></i>
               </a>
               <i className="bi bi-facebook signUpLogo mx-3"></i>

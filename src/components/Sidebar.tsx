@@ -6,11 +6,13 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Chat, whatsAppState } from "../redux/interfaces/index";
 import { setChats } from "../redux/actions";
 import NewChat from "./NewChat";
+import CreateChat from "./CreateChat";
 function Sidebar() {
   const accessToken = JSON.parse(
     localStorage.getItem("accessToken")!.toString()
   );
   const [showProfile, setShowProfile] = useState(false);
+  const [showNewChat, setShowNewChat] = useState(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setChats(accessToken));
@@ -21,6 +23,13 @@ function Sidebar() {
   console.log(allChats);
   const theUser = useAppSelector((state) => state.whatsApp as whatsAppState);
 
+  const handleNewChatClick = () => {
+    setShowNewChat(true);
+  };
+
+  const handleNewChatClose = () => {
+    setShowNewChat(false);
+  };
   const handleProfileClick = () => {
     setShowProfile(true);
   };
@@ -44,7 +53,10 @@ function Sidebar() {
             <div id="sideOthers">
               <i className="bi bi-people-fill"></i>
               <i className="bi bi-emoji-smile"></i>
-              <i className="bi bi-chat-left-text-fill"></i>
+              <i
+                className="bi bi-chat-left-text-fill"
+                onClick={handleNewChatClick}
+              ></i>
               <i className="bi bi-three-dots-vertical"></i>
             </div>
           </Row>
@@ -77,6 +89,7 @@ function Sidebar() {
         show={showProfile}
         onHide={handleProfileClose}
       />
+      <CreateChat show={showNewChat} onHide={handleNewChatClose} />
     </>
   );
 }
