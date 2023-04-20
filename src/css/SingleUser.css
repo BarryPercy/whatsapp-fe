@@ -4,5 +4,8 @@
   border-radius: 50%;
 }
 .modal-content {
-  background-color: transparent;
+  background-color: #111b21;
+}
+.status {
+  font-size: small;
 }

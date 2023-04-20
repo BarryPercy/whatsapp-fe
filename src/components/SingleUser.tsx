@@ -19,15 +19,15 @@ function SingleUser(props: IProps) {
             />
           </div>
           <div id="rightSChat">
-            <div className="d-flex flex-grow-1 ml-3 align-items-center msg">
+            <div className="d-flex flex-grow-1 ml-3 align-items-start msg">
               <div className="flex-grow-1 my-3">
                 <p className="mb-0"></p>
                 <span id="nameSChat">
                   {props.userInfo.name !== "" ? props.userInfo.name : "name"}
                 </span>
               </div>
-              <span className="mr-3">
-                {props.userInfo.status !== ""
+              <span className="mr-3 status">
+                {props.userInfo.status !== undefined
                   ? props.userInfo.status
                   : "Hey there! I am using WhatsApp."}
               </span>

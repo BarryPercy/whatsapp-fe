@@ -8,6 +8,7 @@ export const SET_HISTORY = "SET_HISTORY";
 export const NEW_MESSAGE = "NEW_MESSAGE";
 export const SET_USER_AVATAR = "SET_USER_AVATAR";
 export const GET_USERS_INFO = "GET_USERS_INFO";
+export const GET_USER_INFO = "GET_USER_INFO";
 
 export const setUserInfo =
   (accessToken: string): AppThunk =>
@@ -27,6 +28,25 @@ export const setUserInfo =
         console.log(user);
         dispatch({
           type: SET_USER_INFO,
+          payload: user,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const getUser =
+  (id: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND}/users/${id}`
+      );
+      if (response.ok) {
+        const user = await response.json();
+        dispatch({
+          type: GET_USER_INFO,
           payload: user,
         });
       }
