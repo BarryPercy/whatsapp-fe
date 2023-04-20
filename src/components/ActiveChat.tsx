@@ -9,6 +9,7 @@ const ActiveChat = ()=>{
     
     const chatId = "643efdb6dc04d1ecba940e82"
     const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
+    const otherUserId = ""
     const [message, setMessage] = useState("")
     const username = theUser.name
     const [onlineUsers, setOnlineUsers] = useState<User[]>([])

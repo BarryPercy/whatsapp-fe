@@ -9,7 +9,7 @@ function NewChat(props: IProps) {
   return (
     <>
       <div className="my-2 singleChat">
-        <div className="d-flex align-items-center ml-3 my-2">
+        {/* <div className="d-flex align-items-center ml-3 my-2">
           <div className="align-items-center justify-content-center img-container">
             <img
               src={
@@ -49,7 +49,7 @@ function NewChat(props: IProps) {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -12,6 +12,13 @@ export interface whatsAppState {
     avatar?: string;
     status?: string;
   };
+  otherUserInfo: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar?: string;
+    status?: string;
+  };
   allUsers: {
     list: User[];
   };
@@ -33,6 +40,10 @@ export interface Chat {
 
 export interface setUserInfo {
   type: "SET_USER_INFO";
+  payload: User;
+}
+export interface setOtherUserInfo {
+  type: "OTHER_USER";
   payload: User;
 }
 
@@ -65,7 +76,7 @@ export interface User {
   _id: string;
   name: string;
   email: string;
-  role: string;
+  role?: string;
   avatar?: string;
   status?: string;
 }
