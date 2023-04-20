@@ -52,12 +52,10 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         userInfo: action.payload,
       };
     case "OTHER_USER":
-        console.log("hehe",action.payload)
-    return {
-        
+      return {
         ...state,
         otherUserInfo: action.payload,
-    };
+      };
     case "GET_USERS_INFO":
       console.log(action.payload);
       return {
@@ -100,7 +98,6 @@ const whatsAppReducer = (state = initialState, action: Action) => {
             {
               _id: action.payload.chatId,
               members: action.payload.members,
-              messages: [action.payload.message],
             },
           ],
         },

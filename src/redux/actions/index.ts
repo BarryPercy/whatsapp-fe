@@ -25,7 +25,6 @@ export const setUserInfo =
       );
       if (response.ok) {
         const user = await response.json();
-        console.log(user);
         dispatch({
           type: SET_USER_INFO,
           payload: user,
@@ -41,7 +40,6 @@ export const getAllUsers = (): AppThunk => async (dispatch) => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/users`);
     if (response.ok) {
       const users = await response.json();
-      console.log(users);
       dispatch({
         type: GET_USERS_INFO,
         payload: users,
@@ -113,7 +111,6 @@ export const newMessage =
       const accessToken = JSON.parse(
         localStorage.getItem("accessToken")!.toString()
       );
-      console.log("this is the array",sendObject)
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats`, {
         method: "POST",
         body: JSON.stringify(sendObject),
@@ -187,7 +184,6 @@ export const uploadUserAvatar =
     try {
       const data = new FormData();
       data.append("avatar", avatar);
-      console.log(localStorage.getItem("accessToken"));
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND}/users/me/avatar`,
         {
@@ -202,7 +198,6 @@ export const uploadUserAvatar =
       );
       if (response.ok) {
         const user = await response.json();
-        console.log(user);
         dispatch({
           type: SET_USER_AVATAR,
           payload: user.avatar,

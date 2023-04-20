@@ -19,7 +19,6 @@ function CreateChat({ show, onHide }: ProfileProps) {
   }, []);
   const allUsers = useAppSelector((state) => state.whatsApp as whatsAppState)
     .allUsers.list;
-  console.log("allUsers: " + allUsers);
   return (
     <>
       <Modal show={show} backdrop={false} id="profileModal">
