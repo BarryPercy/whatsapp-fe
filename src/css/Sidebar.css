@@ -134,3 +134,8 @@ input#chatSearch:focus ~ .bi.bi-arrow-right {
   position: absolute;
   top: 50%;
 }
+#nochat {
+  color: rgb(143, 143, 143);
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+}

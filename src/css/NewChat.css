@@ -1,0 +1,32 @@
+div .my-2.singleChat {
+  border: 1px solid;
+  height: 4.55rem;
+  position: relative;
+  cursor: pointer;
+}
+div .my-2.singleChat:hover {
+  background-color: #202c33;
+  content: "";
+}
+.img-container {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+}
+.msg {
+  position: absolute;
+  left: 25%;
+  bottom: 6%;
+  flex-direction: column;
+}
+#time {
+  position: absolute;
+  right: 5%;
+  top: 25%;
+}
+#rightSChat {
+  color: #869694;
+}
+#nameSChat {
+  color: #e9ede3;
+}

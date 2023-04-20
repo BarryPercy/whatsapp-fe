@@ -1,41 +1,43 @@
 import { Modal } from "react-bootstrap";
 import "../css/Profile.css";
-import { useAppSelector } from "../redux/hooks";
-import { User } from "../redux/interfaces";
-import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { User, whatsAppState } from "../redux/interfaces";
+import { useState } from "react";
+import { updateUserInfo } from "../redux/actions";
 
 type ProfileProps = {
   show: boolean;
   onHide: () => void;
+  userInfo: whatsAppState;
 };
 
-function Profile({ show, onHide }: ProfileProps) {
+function Profile({ userInfo, show, onHide }: ProfileProps) {
+  console.log(userInfo.userInfo.avatar);
   const user = useAppSelector((state) => state.whatsApp as User);
   const [name, setName] = useState(user.name);
   const [status, setStatus] = useState(user.status);
   const [nameEditMode, setNameEditMode] = useState(false);
   const [statusEditMode, setStatusEditMode] = useState(false);
-
-  useEffect(() => {
-    if (!user.name) {
-      setName("Mantas");
-    } else {
-      setName(user.name);
-    }
-    if (!user.status) {
-      setStatus("Hey there! I am using WhatsApp.");
-    } else {
-      setStatus(user.status);
-    }
-  }, [user]);
+  const accessToken = JSON.parse(
+    localStorage.getItem("accessToken")!.toString()
+  );
+  const dispatch = useAppDispatch();
 
   function handleNameSave() {
-    // save the updated name here
+    const updatedUser = {
+      ...userInfo,
+      userInfo: { ...userInfo.userInfo, name },
+    };
+    dispatch(updateUserInfo(accessToken, updatedUser));
     setNameEditMode(false);
   }
 
   function handleStatusSave() {
-    // save the updated status here
+    const updatedUser = {
+      ...userInfo,
+      userInfo: { ...userInfo.userInfo, status },
+    };
+    dispatch(updateUserInfo(accessToken, updatedUser));
     setStatusEditMode(false);
   }
 
@@ -50,7 +52,20 @@ function Profile({ show, onHide }: ProfileProps) {
             </div>
           </Modal.Title>
           <Modal.Header>
-            <div id="profileAvatar">{user.avatar}</div>
+            <div id="profileAvatar">
+              {" "}
+              <img
+                src={userInfo.userInfo.avatar}
+                alt="avatar"
+                id="pfpAvatar"
+              />{" "}
+              <div id="hidden">
+                <span id="hiddenCam">
+                  <i className="bi bi-camera-fill"></i>
+                </span>
+                <span id="hiddenText">CHANGE PROFILE PHOTO</span>
+              </div>
+            </div>
           </Modal.Header>
           <div id="bottomPart" style={{ margin: "1rem" }}>
             <div id="nameChange">
@@ -81,7 +96,7 @@ function Profile({ show, onHide }: ProfileProps) {
                       onClick={() => setNameEditMode(true)}
                     >
                       {" "}
-                      {name}
+                      {userInfo.userInfo.name}
                     </span>{" "}
                     <i
                       className="bi bi-pencil-fill"
@@ -123,7 +138,9 @@ function Profile({ show, onHide }: ProfileProps) {
                       id="status"
                       onClick={() => setStatusEditMode(true)}
                     >
-                      {status}
+                      {userInfo.userInfo.status
+                        ? userInfo.userInfo.status
+                        : "I am new to WhatsApp!"}
                     </span>{" "}
                     <i
                       className="bi bi-pencil-fill"
