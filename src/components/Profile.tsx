@@ -13,9 +13,8 @@ type ProfileProps = {
 };
 
 function Profile({ userInfo, show, onHide }: ProfileProps) {
-  console.log(userInfo.userInfo.avatar);
   const user = useAppSelector((state) => state.whatsApp as User);
-  console.log(user)
+
   const [name, setName] = useState(userInfo.userInfo.name);
   const [status, setStatus] = useState(userInfo.userInfo.status);
   const [nameEditMode, setNameEditMode] = useState(false);
@@ -43,12 +42,11 @@ function Profile({ userInfo, show, onHide }: ProfileProps) {
     setStatusEditMode(false);
   }
 
+  const uploadAvatarHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target?.files?.[0];
 
-  const uploadAvatarHandler = (event: React.ChangeEvent<HTMLInputElement>) =>  {
-    const file = event.target?.files?.[0]
-    console.log(file)
-    dispatch(uploadUserAvatar(file))
-  }
+    dispatch(uploadUserAvatar(file));
+  };
 
   return (
     <>
@@ -72,7 +70,12 @@ function Profile({ userInfo, show, onHide }: ProfileProps) {
                 <label id="hiddenCam" htmlFor="uploadAvatar">
                   <i className="bi bi-camera-fill"></i>
                 </label>
-                <input type="file" id="uploadAvatar" hidden onChange={uploadAvatarHandler}/>
+                <input
+                  type="file"
+                  id="uploadAvatar"
+                  hidden
+                  onChange={uploadAvatarHandler}
+                />
                 <span id="hiddenText">CHANGE PROFILE PHOTO</span>
               </div>
             </div>
