@@ -16,6 +16,12 @@ export interface whatsAppState {
     active: string; // the _id of one of the chats among store.chats.list
     list: Chat[];
   };
+<<<<<<< Updated upstream
+=======
+  fetchedUser: {
+    user: User;
+  };
+>>>>>>> Stashed changes
 }
 
 export interface UserState {

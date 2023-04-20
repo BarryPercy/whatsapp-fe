@@ -14,10 +14,11 @@ function Sidebar() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setChats(accessToken));
-  }, [accessToken]);
+  }, []);
   const allChats =
     useAppSelector((state) => state.whatsApp as whatsAppState)?.chats?.list ||
     [];
+  console.log(allChats);
   const theUser = useAppSelector((state) => state.whatsApp as whatsAppState);
 
   const handleProfileClick = () => {

@@ -17,6 +17,7 @@ const Login = () => {
     e.preventDefault();
     console.log("email and password", email, password)
     try {
+<<<<<<< Updated upstream
       const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/session`, {email, password})
       if (response.status >= 200 && response.status <= 299){
         navigate("/main")
@@ -24,6 +25,23 @@ const Login = () => {
         const accessToken = JSON.parse(localStorage.getItem('accessToken')!.toString());
         dispatch(setUserInfo(accessToken))
         navigate("/main")
+=======
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND}/users/login`,
+        { email, password }
+      );
+      if (response.status >= 200 && response.status <= 299) {
+        navigate("/main");
+        localStorage.setItem(
+          "accessToken",
+          JSON.stringify(response.data.token)
+        );
+        const accessToken = JSON.parse(
+          localStorage.getItem("accessToken")!.toString()
+        );
+        dispatch(setUserInfo(accessToken));
+        navigate("/main");
+>>>>>>> Stashed changes
       }
     } catch (error){
       console.log(error)

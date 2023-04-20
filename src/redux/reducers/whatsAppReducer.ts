@@ -27,6 +27,18 @@ const initialState: whatsAppState = {
     active: "",
     list: [],
   },
+<<<<<<< Updated upstream
+=======
+  fetchedUser: {
+    user: {
+      _id: "",
+      name: "",
+      email: "",
+      status: "",
+      avatar: "",
+    },
+  },
+>>>>>>> Stashed changes
 };
 
 const whatsAppReducer = (state = initialState, action: Action) => {
@@ -36,6 +48,24 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         ...state,
         userInfo: action.payload,
       };
+<<<<<<< Updated upstream
+=======
+    case "OTHER_USER":
+      return {
+        ...state,
+        otherUserInfo: action.payload,
+      };
+    case "GET_USER_INFO":
+      return {
+        ...state,
+        fetchedUser: { user: action.payload },
+      };
+    case "GET_USERS_INFO":
+      return {
+        ...state,
+        allUsers: { ...state, list: action.payload },
+      };
+>>>>>>> Stashed changes
     case "SET_CHATS":
       return {
         ...state,
