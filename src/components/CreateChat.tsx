@@ -3,8 +3,7 @@ import { getAllUsers } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Modal } from "react-bootstrap";
 import "../css/CreateChat.css";
-import { whatsAppState, Chat, getUsers, User } from "../redux/interfaces";
-import NewChat from "./NewChat";
+import { whatsAppState, User } from "../redux/interfaces";
 import SingleUser from "./SingleUser";
 
 type ProfileProps = {
@@ -19,7 +18,6 @@ function CreateChat({ show, onHide }: ProfileProps) {
   }, []);
   const allUsers = useAppSelector((state) => state.whatsApp as whatsAppState)
     .allUsers.list;
-  console.log("allUsers: " + allUsers);
   return (
     <>
       <Modal show={show} backdrop={false} id="profileModal">
@@ -30,12 +28,12 @@ function CreateChat({ show, onHide }: ProfileProps) {
               <span>New chat</span>
             </div>
           </Modal.Title>
-          <Modal.Header>
+          <Modal.Header id="createSearch">
             <div id="sideSearch">
               <input
                 type="text"
                 id="chatSearch"
-                placeholder="Search or start new chat"
+                placeholder="Search contacts"
               />
               <i className="bi bi-search"></i>{" "}
               <i className="bi bi-arrow-right"></i>

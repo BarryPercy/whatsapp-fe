@@ -1,5 +1,6 @@
 import { User } from "../redux/interfaces";
 import "../css/NewChat.css";
+import "../css/SingleUser.css";
 
 interface IProps {
   userInfo: User;
@@ -14,6 +15,7 @@ function SingleUser(props: IProps) {
             <img
               src={props.userInfo.avatar !== "" ? props.userInfo.avatar : ""}
               alt="avatar"
+              id="singleAvatar"
             />
           </div>
           <div id="rightSChat">

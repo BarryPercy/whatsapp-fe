@@ -40,7 +40,6 @@ export const getAllUsers = (): AppThunk => async (dispatch) => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/users`);
     if (response.ok) {
       const users = await response.json();
-      console.log(users);
       dispatch({
         type: GET_USERS_INFO,
         payload: users,
