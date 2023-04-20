@@ -11,7 +11,7 @@ function Sidebar() {
   const accessToken = JSON.parse(
     localStorage.getItem("accessToken")!.toString()
   );
-  const [showProfile, setShowProfile] = useState(false);
+  const [show, setShow] = useState(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setChats(accessToken));
@@ -21,12 +21,12 @@ function Sidebar() {
     [];
   const theUser = useAppSelector((state) => state.whatsApp as whatsAppState);
 
-  const handleProfileClick = () => {
-    setShowProfile(true);
+  const handleClick = () => {
+    setShow(true);
   };
 
-  const handleProfileClose = () => {
-    setShowProfile(false);
+  const handleClose = () => {
+    setShow(false);
   };
 
   return (
@@ -38,13 +38,16 @@ function Sidebar() {
               <i
                 className="bi bi-person-circle"
                 style={{ fontSize: "30px" }}
-                onClick={handleProfileClick} // update the click handler
+                onClick={handleClick} // update the click handler
               ></i>
             </div>
             <div id="sideOthers">
               <i className="bi bi-people-fill"></i>
               <i className="bi bi-emoji-smile"></i>
-              <i className="bi bi-chat-left-text-fill"></i>
+              <i
+                className="bi bi-chat-left-text-fill"
+                onClick={handleClick}
+              ></i>
               <i className="bi bi-three-dots-vertical"></i>
             </div>
           </Row>
@@ -72,12 +75,8 @@ function Sidebar() {
           )}
         </Container>
       </Container>
-      <Profile
-        userInfo={theUser}
-        show={showProfile}
-        onHide={handleProfileClose}
-      />
-      <CreateChat />
+      <Profile userInfo={theUser} show={show} onHide={handleClose} />
+      <CreateChat show={show} onHide={handleClose} />
     </>
   );
 }

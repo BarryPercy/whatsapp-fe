@@ -12,6 +12,9 @@ export interface whatsAppState {
     avatar?: string;
     status?: string;
   };
+  allUsers: {
+    list: User[];
+  };
   chats: {
     active: string; // the _id of one of the chats among store.chats.list
     list: Chat[];
@@ -41,7 +44,7 @@ export interface updateUserInfo {
   type: "UPDATE_USER_INFO";
   payload: User;
 }
-export interface getAllUsers {
+export interface getUsers {
   type: "GET_USERS_INFO";
   payload: {
     users: User[];
@@ -62,6 +65,7 @@ export interface User {
   _id: string;
   name: string;
   email: string;
+  role: string;
   avatar?: string;
   status?: string;
 }
