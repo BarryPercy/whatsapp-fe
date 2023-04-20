@@ -8,7 +8,8 @@ export const SET_HISTORY = "SET_HISTORY";
 export const NEW_MESSAGE = "NEW_MESSAGE";
 export const SET_USER_AVATAR = "SET_USER_AVATAR";
 export const GET_USERS_INFO = "GET_USERS_INFO";
-export const OTHER_USER = "OTHER_USER"
+export const OTHER_USER = "OTHER_USER";
+export const GET_USER_INFO = "GET_USER_INFO";
 
 export const setUserInfo =
   (accessToken: string): AppThunk =>
@@ -27,6 +28,25 @@ export const setUserInfo =
         const user = await response.json();
         dispatch({
           type: SET_USER_INFO,
+          payload: user,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const getUser =
+  (id: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND}/users/${id}`
+      );
+      if (response.ok) {
+        const user = await response.json();
+        dispatch({
+          type: GET_USER_INFO,
           payload: user,
         });
       }
@@ -106,7 +126,7 @@ export const newMessage =
     try {
       const sendObject = {
         // message,
-        recipient:recipient._id,
+        recipient: recipient._id,
       };
       const accessToken = JSON.parse(
         localStorage.getItem("accessToken")!.toString()
@@ -120,7 +140,7 @@ export const newMessage =
         },
       });
       if (response.status === 200) {
-        console.log("chat exists")
+        console.log("chat exists");
         const res = await response.json();
         dispatch({
           type: "SET_HISTORY",
@@ -137,7 +157,7 @@ export const newMessage =
         });
       } else if (response.status === 201) {
         const res = await response.json();
-        console.log("new message")
+        console.log("new message");
         dispatch({
           type: "NEW_MESSAGE",
           payload: {

@@ -8,7 +8,8 @@ import {
   updateUserInfo,
   setUserAvatar,
   getUsers,
-  setOtherUserInfo
+  getUser,
+  setOtherUserInfo,
 } from "../interfaces/index";
 
 type Action =
@@ -20,7 +21,8 @@ type Action =
   | updateUserInfo
   | setUserAvatar
   | getUsers
-  | setOtherUserInfo
+  | getUser
+  | setOtherUserInfo;
 
 const initialState: whatsAppState = {
   userInfo: {
@@ -29,7 +31,7 @@ const initialState: whatsAppState = {
     email: "",
     avatar: "",
   },
-  otherUserInfo:{
+  otherUserInfo: {
     _id: "",
     name: "",
     email: "",
@@ -41,6 +43,9 @@ const initialState: whatsAppState = {
   chats: {
     active: "",
     list: [],
+  },
+  fetchedUser: {
+    user: [],
   },
 };
 
@@ -55,6 +60,12 @@ const whatsAppReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         otherUserInfo: action.payload,
+      };
+    case "GET_USER_INFO":
+      console.log(action.payload);
+      return {
+        ...state,
+        userInfo: { user: action.payload },
       };
     case "GET_USERS_INFO":
       return {

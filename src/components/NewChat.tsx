@@ -1,11 +1,25 @@
-import { Chat } from "../redux/interfaces";
+import { Chat, whatsAppState } from "../redux/interfaces";
 import "../css/NewChat.css";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { getUser } from "../redux/actions";
+import { useEffect } from "react";
 
 interface IProps {
   chatInfo: Chat;
 }
 
 function NewChat(props: IProps) {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      getUser(props.chatInfo.members[props.chatInfo.members.length - 1]._id)
+    );
+  }, []);
+  const recipient = useAppSelector(
+    (state) => (state.whatsApp as whatsAppState).fetchedUser
+  );
+  console.log(recipient);
+
   return (
     <>
       <div className="my-2 singleChat">
@@ -13,12 +27,13 @@ function NewChat(props: IProps) {
           <div className="align-items-center justify-content-center img-container">
             <img
               src={
-                props.chatInfo.messages.length > 0
-                  ? props.chatInfo.messages[props.chatInfo.messages.length - 1]
-                      .sender.avatar
+                props.chatInfo.members.length > 0
+                  ? props.chatInfo.members[props.chatInfo.members.length - 1]
+                      .avatar
                   : ""
               }
               alt="avatar"
+              id="singleAvatar"
             />
           </div>
           <div id="rightSChat">
@@ -26,10 +41,9 @@ function NewChat(props: IProps) {
               <div className="flex-grow-1 my-3">
                 <p className="mb-0"></p>
                 <span id="nameSChat">
-                  {props.chatInfo.messages.length > 0
-                    ? props.chatInfo.messages[
-                        props.chatInfo.messages.length - 1
-                      ].sender.name
+                  {props.chatInfo.members.length > 0
+                    ? props.chatInfo.members[props.chatInfo.members.length - 1]
+                        .email
                     : "name"}
                 </span>
               </div>

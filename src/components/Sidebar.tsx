@@ -11,7 +11,8 @@ function Sidebar() {
   const accessToken = JSON.parse(
     localStorage.getItem("accessToken")!.toString()
   );
-  const [show, setShow] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [showNewChat, setShowNewChat] = useState(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setChats(accessToken));
@@ -21,12 +22,19 @@ function Sidebar() {
     [];
   const theUser = useAppSelector((state) => state.whatsApp as whatsAppState);
 
-  const handleClick = () => {
-    setShow(true);
+  const handleNewChatClick = () => {
+    setShowNewChat(true);
   };
 
-  const handleClose = () => {
-    setShow(false);
+  const handleNewChatClose = () => {
+    setShowNewChat(false);
+  };
+  const handleProfileClick = () => {
+    setShowProfile(true);
+  };
+
+  const handleProfileClose = () => {
+    setShowProfile(false);
   };
 
   return (
@@ -38,7 +46,7 @@ function Sidebar() {
               <i
                 className="bi bi-person-circle"
                 style={{ fontSize: "30px" }}
-                onClick={handleClick} // update the click handler
+                onClick={handleProfileClick} // update the click handler
               ></i>
             </div>
             <div id="sideOthers">
@@ -46,7 +54,7 @@ function Sidebar() {
               <i className="bi bi-emoji-smile"></i>
               <i
                 className="bi bi-chat-left-text-fill"
-                onClick={handleClick}
+                onClick={handleNewChatClick}
               ></i>
               <i className="bi bi-three-dots-vertical"></i>
             </div>
@@ -75,8 +83,12 @@ function Sidebar() {
           )}
         </Container>
       </Container>
-      <Profile userInfo={theUser} show={show} onHide={handleClose} />
-      <CreateChat show={show} onHide={handleClose} />
+      <Profile
+        userInfo={theUser}
+        show={showProfile}
+        onHide={handleProfileClose}
+      />
+      <CreateChat show={showNewChat} onHide={handleNewChatClose} />
     </>
   );
 }
