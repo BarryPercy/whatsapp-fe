@@ -41,6 +41,12 @@ export interface updateUserInfo {
   type: "UPDATE_USER_INFO";
   payload: User;
 }
+export interface getAllUsers {
+  type: "GET_USERS_INFO";
+  payload: {
+    users: User[];
+  };
+}
 
 export interface Message {
   _id: string;

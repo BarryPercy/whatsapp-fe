@@ -15,18 +15,26 @@ const Login = () => {
   const navigate = useNavigate();
   const loginHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log("email and password", email, password)
+    console.log("email and password", email, password);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND}/users/login`, {email, password})
-      if (response.status >= 200 && response.status <= 299){
-        navigate("/main")
-        localStorage.setItem('accessToken', JSON.stringify(response.data.token));
-        const accessToken = JSON.parse(localStorage.getItem('accessToken')!.toString());
-        dispatch(setUserInfo(accessToken))
-        navigate("/main")
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND}/users/session`,
+        { email, password }
+      );
+      if (response.status >= 200 && response.status <= 299) {
+        navigate("/main");
+        localStorage.setItem(
+          "accessToken",
+          JSON.stringify(response.data.token)
+        );
+        const accessToken = JSON.parse(
+          localStorage.getItem("accessToken")!.toString()
+        );
+        dispatch(setUserInfo(accessToken));
+        navigate("/main");
       }
-    } catch (error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
