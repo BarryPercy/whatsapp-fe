@@ -6,9 +6,8 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { whatsAppState } from '../redux/interfaces'
 const ActiveChat = ()=>{
     //const [username, setUsername] = useState("")
-    
-    const chatId = "643efdb6dc04d1ecba940e82"
     const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
+    const chatId = useAppSelector((state) => state.whatsApp as whatsAppState).chats.active
     const otherUserId = ""
     const [message, setMessage] = useState("")
     const username = theUser.name
@@ -23,7 +22,7 @@ const ActiveChat = ()=>{
         socket.emit("loggedIn")
         socket.emit("joinRoom", chatId);
         
-      }, [])
+      }, [chatId])
     const sendMessage = () => {
         const newMessage = {
             sender: username,
