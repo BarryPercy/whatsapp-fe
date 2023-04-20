@@ -6,7 +6,8 @@ export const SET_CHATS = "SET_CHATS";
 export const SET_ACTIVE_CHAT = "SET_ACTIVE_CHAT";
 export const SET_HISTORY = "SET_HISTORY";
 export const NEW_MESSAGE = "NEW_MESSAGE";
-export const SET_USER_AVATAR = "SET_USER_AVATAR"
+export const SET_USER_AVATAR = "SET_USER_AVATAR";
+export const GET_USERS_INFO = "GET_USERS_INFO";
 
 export const setUserInfo =
   (accessToken: string): AppThunk =>
@@ -33,6 +34,22 @@ export const setUserInfo =
       console.log(error);
     }
   };
+
+export const getAllUsers = (): AppThunk => async (dispatch) => {
+  try {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/users`);
+    if (response.ok) {
+      const users = await response.json();
+      console.log(users);
+      dispatch({
+        type: GET_USERS_INFO,
+        payload: users,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const setChats =
   (accessToken: string): AppThunk =>
@@ -157,28 +174,28 @@ export const updateUserInfo =
     }
   };
 
-
-  export const uploadUserAvatar =
+export const uploadUserAvatar =
   (avatar: any): AppThunk =>
   async (dispatch) => {
     try {
-      const data = new FormData()
-      data.append("avatar", avatar)
-      console.log(localStorage.getItem("accessToken"))
+      const data = new FormData();
+      data.append("avatar", avatar);
+      console.log(localStorage.getItem("accessToken"));
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND}/users/me/avatar`,
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${JSON.parse(localStorage.getItem("accessToken")|| "")}`,
-          
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("accessToken") || ""
+            )}`,
           },
           body: data,
         }
       );
       if (response.ok) {
         const user = await response.json();
-        console.log(user)
+        console.log(user);
         dispatch({
           type: SET_USER_AVATAR,
           payload: user.avatar,

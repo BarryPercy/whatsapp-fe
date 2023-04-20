@@ -7,6 +7,7 @@ import {
   newMessage,
   updateUserInfo,
   setUserAvatar,
+  getAllUsers,
 } from "../interfaces/index";
 
 type Action =
@@ -17,6 +18,7 @@ type Action =
   | newMessage
   | updateUserInfo
   | setUserAvatar
+  | getAllUsers;
 
 const initialState: whatsAppState = {
   userInfo: {
@@ -37,6 +39,11 @@ const whatsAppReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         userInfo: action.payload,
+      };
+    case "GET_USERS_INFO":
+      return {
+        ...state,
+        allUsers: action.payload,
       };
     case "SET_CHATS":
       return {
@@ -84,14 +91,14 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         ...state,
         currentUser: action.payload,
       };
-      case "SET_USER_AVATAR":
-        return {
-          ...state,
-          userInfo: {
-            ...state.userInfo,
-            avatar: action.payload
-          },
-        };
+    case "SET_USER_AVATAR":
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          avatar: action.payload,
+        },
+      };
     default:
       return state;
   }

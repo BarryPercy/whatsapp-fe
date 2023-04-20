@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Chat, whatsAppState } from "../redux/interfaces/index";
 import { setChats } from "../redux/actions";
 import NewChat from "./NewChat";
+import CreateChat from "./CreateChat";
 function Sidebar() {
   const accessToken = JSON.parse(
     localStorage.getItem("accessToken")!.toString()
@@ -76,6 +77,7 @@ function Sidebar() {
         show={showProfile}
         onHide={handleProfileClose}
       />
+      <CreateChat />
     </>
   );
 }
