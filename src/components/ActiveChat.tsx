@@ -3,11 +3,14 @@ import { User, Message } from '../types/index'
 import { useState, useEffect } from 'react'
 import { Container, Form, FormControl, ListGroup, Row, Col } from 'react-bootstrap'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { whatsAppState } from '../redux/interfaces'
 const ActiveChat = ()=>{
     //const [username, setUsername] = useState("")
-    const username = "12341234"
+    
     const chatId = "643efdb6dc04d1ecba940e82"
+    const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
     const [message, setMessage] = useState("")
+    const username = theUser.name
     const [onlineUsers, setOnlineUsers] = useState<User[]>([])
     const [loggedIn, setLoggedIn] = useState(false)
     const [chatHistory, setChatHistory] = useState<Message[]>([])
