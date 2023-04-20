@@ -2,10 +2,25 @@
   background-color: #202c33;
   color: #8696a0;
   position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
+  top: 13%;
+  right: 5%;
+  height: 75%;
   width: 80%;
   border: none;
   transition: all 0.2s ease-in-out;
+}
+#createSearch {
+  background-color: #202c33;
+  width: 95%;
+  position: relative;
+  color: white;
+  border-radius: 10px;
+  height: 3rem;
+  border-bottom: none;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  margin-left: 0.5rem;
+}
+#createSearch i {
+  margin-top: 0.7rem;
 }

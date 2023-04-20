@@ -57,7 +57,6 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         otherUserInfo: action.payload,
       };
     case "GET_USERS_INFO":
-      console.log(action.payload);
       return {
         ...state,
         allUsers: { ...state, list: action.payload },
