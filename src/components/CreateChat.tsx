@@ -13,6 +13,8 @@ type ProfileProps = {
 
 function CreateChat({ show, onHide }: ProfileProps) {
   const dispatch = useAppDispatch();
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -49,7 +51,11 @@ function CreateChat({ show, onHide }: ProfileProps) {
       });
 
     setSortedUsers(sortedGroups);
-  }, [allUsers]);
+    const filtered = allUsers.filter((user) =>
+      user.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  }, [allUsers, searchValue]);
   return (
     <>
       <Modal show={show} backdrop={false} id="profileModal">
@@ -66,6 +72,8 @@ function CreateChat({ show, onHide }: ProfileProps) {
                 type="text"
                 id="chatSearch"
                 placeholder="Search contacts"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
               />
               <i className="bi bi-search"></i>{" "}
               <i className="bi bi-arrow-right"></i>
@@ -107,16 +115,24 @@ function CreateChat({ show, onHide }: ProfileProps) {
             <div className="ml-4 my-3" style={{ color: "#008052" }}>
               CONTACTS ON WHATSAPP
             </div>
-            {Object.keys(sortedUsers).map((letter) => (
-              <div key={letter} className="mt-2">
-                <h4 className="ml-4" style={{ color: "#008052" }}>
-                  {letter}
-                </h4>
-                {sortedUsers[letter].map((user) => (
+            {searchValue
+              ? filteredUsers.map((user) => (
                   <SingleUser key={user._id} userInfo={user} onHide={onHide} />
+                ))
+              : Object.keys(sortedUsers).map((letter) => (
+                  <div key={letter} className="mt-2">
+                    <h4 className="ml-4" style={{ color: "#008052" }}>
+                      {letter}
+                    </h4>
+                    {sortedUsers[letter].map((user) => (
+                      <SingleUser
+                        key={user._id}
+                        userInfo={user}
+                        onHide={onHide}
+                      />
+                    ))}
+                  </div>
                 ))}
-              </div>
-            ))}
           </Modal.Dialog>
         </Modal.Body>
       </Modal>
