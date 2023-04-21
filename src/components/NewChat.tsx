@@ -35,13 +35,7 @@ function NewChat(props: IProps) {
                 <span className="mr-3">{leftUser.status}</span>
               </div>
               <div id="time">
-                <span>
-                  {props.chatInfo.messages.length > 0
-                    ? props.chatInfo.messages[
-                        props.chatInfo.messages.length - 1
-                      ].timestamp.toLocaleString()
-                    : timestamp}
-                </span>
+                <span>{timestamp}</span>
               </div>
             </div>
           </div>
