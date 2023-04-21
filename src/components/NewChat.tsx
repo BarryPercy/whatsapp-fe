@@ -1,6 +1,8 @@
 import { Chat, User } from "../redux/interfaces";
 import "../css/NewChat.css";
 import { memo } from "react";
+import { useAppDispatch } from "../redux/hooks";
+import { OTHER_USER, newMessage } from "../redux/actions";
 
 interface IProps {
   chatInfo: Chat;
@@ -17,11 +19,20 @@ function NewChat(props: IProps) {
     }
   });
   const leftUser = props.allUsers.find((user) => user._id === leftUserId)!;
-  console.log(leftUser);
+  const dispatch = useAppDispatch();
+
+  let theUser = props.allUsers.find((user) => user._id === currentUserId);
+  const handleClick = () => {
+    dispatch({
+      type: OTHER_USER,
+      payload: leftUser,
+    });
+    dispatch(newMessage(leftUser, theUser!));
+  };
   return (
     <>
       {
-        <div key={leftUserId} className="my-2 singleChat">
+        <div key={leftUserId} className="my-2 singleChat" onClick={handleClick}>
           <div className="d-flex align-items-center ml-3 my-2">
             <div className="align-items-center justify-content-center img-container">
               <img src={leftUser.avatar} alt="avatar" id="singleAvatar" />
