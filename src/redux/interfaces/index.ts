@@ -11,6 +11,7 @@ export interface whatsAppState {
     email: string;
     avatar?: string;
     status?: string;
+    role: string;
   };
   allUsers: {
     list: User[];
@@ -20,7 +21,7 @@ export interface whatsAppState {
     list: Chat[];
   };
   fetchedUser: {
-    user: User[];
+    user: User;
   };
 }
 

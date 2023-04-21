@@ -1,71 +1,53 @@
-import { Chat, whatsAppState } from "../redux/interfaces";
+import { Chat, User } from "../redux/interfaces";
 import "../css/NewChat.css";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { getUser } from "../redux/actions";
-import { useEffect } from "react";
+import { memo } from "react";
 
 interface IProps {
   chatInfo: Chat;
+  allUsers: User[];
 }
 
 function NewChat(props: IProps) {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(
-      getUser(props.chatInfo.members[props.chatInfo.members.length - 1]._id)
-    );
-  }, []);
-  const recipient = useAppSelector(
-    (state) => (state.whatsApp as whatsAppState).fetchedUser
-  );
-  console.log(recipient);
-
+  const timestamp = new Date().toLocaleString();
+  const currentUserId = localStorage.getItem("userId")?.toString();
+  let leftUserId = "";
+  props.chatInfo.members.forEach((member) => {
+    if (currentUserId !== member._id) {
+      leftUserId = member._id;
+    }
+  });
+  const leftUser = props.allUsers.find((user) => user._id === leftUserId)!;
+  console.log(leftUser);
   return (
     <>
-      <div className="my-2 singleChat">
-        <div className="d-flex align-items-center ml-3 my-2">
-          <div className="align-items-center justify-content-center img-container">
-            <img
-              src={
-                props.chatInfo.members.length > 0
-                  ? props.chatInfo.members[props.chatInfo.members.length - 1]
-                      .avatar
-                  : ""
-              }
-              alt="avatar"
-              id="singleAvatar"
-            />
-          </div>
-          <div id="rightSChat">
-            <div className="d-flex flex-grow-1 ml-3 align-items-center msg">
-              <div className="flex-grow-1 my-3">
-                <p className="mb-0"></p>
-                <span id="nameSChat">
-                  {props.chatInfo.members.length > 0
-                    ? props.chatInfo.members[props.chatInfo.members.length - 1]
-                        .email
-                    : "name"}
+      {
+        <div key={leftUserId} className="my-2 singleChat">
+          <div className="d-flex align-items-center ml-3 my-2">
+            <div className="align-items-center justify-content-center img-container">
+              <img src={leftUser.avatar} alt="avatar" id="singleAvatar" />
+            </div>
+            <div id="rightSChat">
+              <div className="d-flex flex-grow-1 ml-3 align-items-center msg">
+                <div className="flex-grow-1 my-3">
+                  <p className="mb-0"></p>
+                  <span id="nameSChat">{leftUser.name}</span>
+                </div>
+                <span className="mr-3">{leftUser.status}</span>
+              </div>
+              <div id="time">
+                <span>
+                  {props.chatInfo.messages.length > 0
+                    ? props.chatInfo.messages[
+                        props.chatInfo.messages.length - 1
+                      ].timestamp.toLocaleString()
+                    : timestamp}
                 </span>
               </div>
-              <span className="mr-3">
-                {props.chatInfo.messages.length > 0
-                  ? props.chatInfo.messages[props.chatInfo.messages.length - 1]
-                      .content.text
-                  : "text"}
-              </span>
-            </div>
-            <div id="time">
-              <span>
-                {props.chatInfo.messages.length > 0
-                  ? props.chatInfo.messages[props.chatInfo.messages.length - 1]
-                      .timestamp
-                  : "Today"}
-              </span>
             </div>
           </div>
         </div>
-      </div>
+      }
     </>
   );
 }
-export default NewChat;
+export default memo(NewChat);
