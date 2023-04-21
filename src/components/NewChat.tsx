@@ -35,7 +35,7 @@ function NewChat(props: IProps) {
         <div key={leftUserId} className="my-2 singleChat" onClick={handleClick}>
           <div className="d-flex align-items-center ml-3 my-2">
             <div className="align-items-center justify-content-center img-container">
-              <img src={leftUser.avatar} alt="avatar" id="singleAvatar" />
+              <img src={leftUser?.avatar} alt="avatar" id="singleAvatar" />
             </div>
             <div id="rightSChat">
               <div className="d-flex flex-grow-1 ml-3 align-items-center msg">
