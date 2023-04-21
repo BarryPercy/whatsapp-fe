@@ -4,9 +4,10 @@ import "../css/Sidebar.css";
 import Profile from "./Profile";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Chat, whatsAppState } from "../redux/interfaces/index";
-import { setChats } from "../redux/actions";
+import { setChats, setUserInfo } from "../redux/actions";
 import NewChat from "./NewChat";
 import CreateChat from "./CreateChat";
+
 function Sidebar() {
   const accessToken = JSON.parse(
     localStorage.getItem("accessToken")!.toString()
@@ -14,13 +15,36 @@ function Sidebar() {
   const [showProfile, setShowProfile] = useState(false);
   const [showNewChat, setShowNewChat] = useState(false);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(setChats(accessToken));
-  }, [accessToken]);
+    dispatch(setUserInfo(accessToken));
+  }, [accessToken, dispatch]);
+
   const allChats =
-    useAppSelector((state) => state.whatsApp as whatsAppState)?.chats?.list ||
-    [];
-  const theUser = useAppSelector((state) => state.whatsApp as whatsAppState);
+    useAppSelector(
+      (state: { whatsApp: whatsAppState }) => state.whatsApp.chats.list
+    ) || [];
+  allChats.sort((a, b) => {
+    const lastMsgA = a.messages[a.messages.length - 1];
+    const lastMsgB = b.messages[b.messages.length - 1];
+    if (lastMsgA && lastMsgB) {
+      return (
+        new Date(lastMsgB.timestamp).getTime() -
+        new Date(lastMsgA.timestamp).getTime()
+      );
+    } else if (lastMsgA) {
+      return -1;
+    } else if (lastMsgB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  const theUser = useAppSelector(
+    (state: { whatsApp: whatsAppState }) => state.whatsApp
+  );
+  localStorage.setItem("userId", theUser.userInfo._id);
 
   const handleNewChatClick = () => {
     setShowNewChat(true);
@@ -29,6 +53,7 @@ function Sidebar() {
   const handleNewChatClose = () => {
     setShowNewChat(false);
   };
+
   const handleProfileClick = () => {
     setShowProfile(true);
   };
@@ -46,7 +71,7 @@ function Sidebar() {
               <i
                 className="bi bi-person-circle"
                 style={{ fontSize: "30px" }}
-                onClick={handleProfileClick} // update the click handler
+                onClick={handleProfileClick}
               ></i>
             </div>
             <div id="sideOthers">
@@ -74,9 +99,15 @@ function Sidebar() {
               <i className="bi bi-filter"></i>
             </Card.Header>
           </Card>
-          {allChats && allChats.length > 0 ? (
-            allChats.map((chat: Chat, index: number) => {
-              return <NewChat key={index} chatInfo={chat} />;
+          {allChats.length ? (
+            allChats.map((chat: Chat) => {
+              return (
+                <NewChat
+                  key={chat._id}
+                  chatInfo={chat}
+                  allUsers={theUser.allUsers.list}
+                />
+              );
             })
           ) : (
             <div id="nochat">No chats found!</div>

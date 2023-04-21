@@ -10,7 +10,7 @@ div .my-2.singleChat:hover {
 }
 .img-container {
   position: absolute;
-  top: 25%;
+  top: 15%;
   left: 5%;
 }
 .msg {
@@ -22,7 +22,8 @@ div .my-2.singleChat:hover {
 #time {
   position: absolute;
   right: 5%;
-  top: 25%;
+  top: 40%;
+  font-size: 0.6rem;
 }
 #rightSChat {
   color: #869694;

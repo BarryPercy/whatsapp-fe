@@ -30,6 +30,7 @@ const initialState: whatsAppState = {
     name: "",
     email: "",
     avatar: "",
+    role: "",
   },
   otherUserInfo: {
     _id: "",
@@ -45,7 +46,14 @@ const initialState: whatsAppState = {
     list: [],
   },
   fetchedUser: {
-    user: [],
+    user: {
+      _id: "",
+      name: "",
+      email: "",
+      avatar: "",
+      status: "",
+      role: "",
+    },
   },
 };
 
@@ -62,10 +70,9 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         otherUserInfo: action.payload,
       };
     case "GET_USER_INFO":
-      console.log(action.payload);
       return {
         ...state,
-        userInfo: { user: action.payload },
+        fetchedUser: { user: action.payload },
       };
     case "GET_USERS_INFO":
       return {
