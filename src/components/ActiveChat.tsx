@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Container, Form, FormControl, ListGroup, Row, Col } from 'react-bootstrap'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { whatsAppState } from '../redux/interfaces'
-import { addMessage } from '../redux/actions'
+import { addMessage, setChats, setHistory } from '../redux/actions'
 const ActiveChat = ()=>{
     //const [username, setUsername] = useState("")
     const dispatch = useAppDispatch()
@@ -14,9 +14,9 @@ const ActiveChat = ()=>{
     const chatState = useAppSelector((state) => state.whatsApp as whatsAppState).chats.list
     const [message, setMessage] = useState("")
     const username = theUser.name
+    const [chatIndex,setChatIndex] = useState(0)
     // const [onlineUsers, setOnlineUsers] = useState<User[]>([])
     // const [loggedIn, setLoggedIn] = useState(false)
-    const [chatHistory, setChatHistory] = useState<Message[]>([])
     const socket = io(process.env.REACT_APP_BACKEND as string, { transports: ['websocket'] })
     useEffect(() => {
         socket.emit("joinRoom", chatId);
@@ -24,9 +24,14 @@ const ActiveChat = ()=>{
             (chat) => chat._id === chatId
         )
         console.log("this chat's history", history)
-        console.log("chatId", chatId)
-        //setChatHistory(history) 
-      }, [chatId])
+        socket.on("newMessage", message=>{
+            dispatch(setChats())
+        } )
+        console.log("state",chatState)
+        const currentChat = chatState.findIndex(chat => chat._id === chatId);
+        setChatIndex(currentChat)
+        console.log("currentchat",chatState[currentChat])
+      }, [chatState])
     const sendMessage = () => {
         const newMessage = {
             sender: theUser,
@@ -34,22 +39,26 @@ const ActiveChat = ()=>{
                 text:message,
                 // media:"",
             },
-            timestamp: new Date().toLocaleString("en-GB"),
             _id:chatId
         }
-        console.log("theUserid", theUser)
-        console.log("ottheUserid", otherUser)
         socket.emit("sendMessage", { message: newMessage })
     }
     return(
         <Container fluid>
             <Row>
-                {otherUser.name} {chatId}
+                {otherUser.name}
             </Row>
             <Row style={{ height: "95vh" }} className="my-3">
                 <Col md={12} className="d-flex flex-column justify-content-between">
                     <ListGroup>
-                        {chatHistory.map((message, index) => (<ListGroup.Item key={index}>{<strong>{message.sender} </strong>} | {message.text} at {message.timestamp}</ListGroup.Item>))}
+                        {chatState[chatIndex] && chatState[chatIndex].messages
+                            ?(chatState[chatIndex].messages.map((message, index) => 
+                            (<ListGroup.Item key={index}>
+                                {<strong>{message.sender.name} </strong>} | {message.content.text} at {message.createdAt?.toString()}
+                                </ListGroup.Item>)
+                                ))
+                                :""
+                        }
                     </ListGroup>
                     <Form
                         onSubmit={e => {

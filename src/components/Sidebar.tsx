@@ -17,7 +17,7 @@ function Sidebar() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setChats(accessToken));
+    dispatch(setChats());
     dispatch(setUserInfo(accessToken));
   }, [accessToken, dispatch]);
 

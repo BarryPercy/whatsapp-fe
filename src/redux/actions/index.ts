@@ -72,9 +72,12 @@ export const getAllUsers = (): AppThunk => async (dispatch) => {
 };
 
 export const setChats =
-  (accessToken: string): AppThunk =>
+  (): AppThunk =>
   async (dispatch) => {
     try {
+      const accessToken = JSON.parse(
+        localStorage.getItem("accessToken")!.toString()
+      );
       const response = await fetch(`${process.env.REACT_APP_BACKEND}/chats`, {
         method: "GET",
         headers: {
@@ -94,9 +97,13 @@ export const setChats =
   };
 
 export const setHistory =
-  (id: string, accessToken: string): AppThunk =>
+  (id: string): AppThunk =>
   async (dispatch) => {
     try {
+      console.log(id)
+      const accessToken = JSON.parse(
+        localStorage.getItem("accessToken")!.toString()
+      );
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND}/chats/${id}`,
         {
@@ -108,13 +115,17 @@ export const setHistory =
       );
       if (response.ok) {
         const res = await response.json();
+        console.log("dis what i got", res)
         dispatch({
           type: "SET_HISTORY",
           payload: {
             chatId: id,
-            history: res.messages,
+            history: res,
           },
         });
+      }
+      else{
+        console.log("meow")
       }
     } catch (error) {
       console.log(error);
@@ -141,9 +152,7 @@ export const newMessage =
         },
       });
       if (response.status === 200) {
-        console.log("chat exists");
         const res = await response.json();
-        console.log("200res",res)
         dispatch({
           type: "SET_HISTORY",
           payload: {
