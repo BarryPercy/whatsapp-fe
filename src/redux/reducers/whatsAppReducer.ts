@@ -10,6 +10,7 @@ import {
   getUsers,
   getUser,
   setOtherUserInfo,
+  addMessage
 } from "../interfaces/index";
 
 type Action =
@@ -22,7 +23,8 @@ type Action =
   | setUserAvatar
   | getUsers
   | getUser
-  | setOtherUserInfo;
+  | setOtherUserInfo
+  | addMessage
 
 const initialState: whatsAppState = {
   userInfo: {
@@ -62,7 +64,6 @@ const whatsAppReducer = (state = initialState, action: Action) => {
         otherUserInfo: action.payload,
       };
     case "GET_USER_INFO":
-      console.log(action.payload);
       return {
         ...state,
         userInfo: { user: action.payload },
@@ -125,6 +126,23 @@ const whatsAppReducer = (state = initialState, action: Action) => {
           avatar: action.payload,
         },
       };
+    case "ADD_MESSAGE":
+      const addedChatIndex = state.chats.list.findIndex(
+        (chat) => chat._id === chatId
+      );
+      const addedUpdatedChat =  state.chats.list[addedChatIndex].messages?.push(action.payload);
+      const addedUpdatedList = [
+        ...state.chats.list.slice(0, addedChatIndex),
+        addedUpdatedChat,
+        ...state.chats.list.slice(addedChatIndex + 1),
+      ];
+      return{
+        ...state,
+        chats:{
+          ...state.chats,
+          list:addedUpdatedList
+        }
+      }
     default:
       return state;
   }
