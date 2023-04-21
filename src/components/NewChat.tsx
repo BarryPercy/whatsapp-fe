@@ -41,9 +41,9 @@ function NewChat(props: IProps) {
               <div className="d-flex flex-grow-1 ml-3 align-items-center msg">
                 <div className="flex-grow-1 my-3">
                   <p className="mb-0"></p>
-                  <span id="nameSChat">{leftUser.name}</span>
+                  <span id="nameSChat">{leftUser?.name}</span>
                 </div>
-                <span className="mr-3">{leftUser.status}</span>
+                <span className="mr-3">{leftUser?.status}</span>
               </div>
               <div id="time">
                 <span>{timestamp}</span>
