@@ -21,7 +21,7 @@ function CreateChat({ show, onHide }: ProfileProps) {
   }, []);
 
   const allUsers = useAppSelector((state) => state.whatsApp as whatsAppState)
-    .allUsers.list;
+    .allUsers?.list;
 
   const [sortedUsers, setSortedUsers] = useState<{ [key: string]: User[] }>({});
 
