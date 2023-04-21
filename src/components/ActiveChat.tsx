@@ -58,6 +58,8 @@ const ActiveChat = () => {
     };
     socket.emit("sendMessage", { message: newMessage });
   };
+  console.log("Current user", theUser);
+  console.log("Other user", otherUser);
   return (
     <Container fluid>
       <Row>{otherUser.name}</Row>
@@ -66,9 +68,43 @@ const ActiveChat = () => {
           <ListGroup>
             {chatState[chatIndex] && chatState[chatIndex].messages
               ? chatState[chatIndex].messages.map((message, index) => (
-                  <ListGroup.Item key={index}>
-                    {<strong>{message.sender.name} </strong>} |{" "}
-                    {message.content.text} at {message.createdAt?.toString()}
+                  <ListGroup.Item
+                    key={index}
+                    className={
+                      message.sender.toString() === theUser._id
+                        ? "user-message"
+                        : "other-message"
+                    }
+                  >
+                    <div
+                      className={
+                        message.sender.toString() === theUser._id
+                          ? "user-name"
+                          : "other-name"
+                      }
+                    >
+                      {message.sender.toString() === theUser._id
+                        ? username
+                        : otherUser.name}
+                    </div>
+                    <div
+                      className={
+                        otherUser._id === theUser._id
+                          ? "user-bubble"
+                          : "other-bubble"
+                      }
+                    >
+                      {message.content.text}
+                    </div>
+                    <div
+                      className={
+                        otherUser._id === theUser._id
+                          ? "user-message-time"
+                          : "other-message-time"
+                      }
+                    >
+                      {message.createdAt?.toLocaleString()}
+                    </div>
                   </ListGroup.Item>
                 ))
               : ""}
