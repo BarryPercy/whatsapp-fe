@@ -7,19 +7,22 @@ import { OTHER_USER, newMessage } from "../redux/actions";
 
 interface IProps {
   userInfo: User;
+  onHide: () => void;
 }
-
 
 function SingleUser(props: IProps) {
   const dispatch = useAppDispatch();
-  const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
+  const theUser = useAppSelector(
+    (state) => state.whatsApp as whatsAppState
+  ).userInfo;
   const handleClick = () => {
-      dispatch({
-        type: OTHER_USER,
-        payload: props.userInfo
-      })
-      dispatch(newMessage(props.userInfo, theUser))
-    }
+    props.onHide();
+    dispatch({
+      type: OTHER_USER,
+      payload: props.userInfo,
+    });
+    dispatch(newMessage(props.userInfo, theUser));
+  };
   return (
     <>
       <div className="my-2 singleChat" onClick={handleClick}>

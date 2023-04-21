@@ -113,7 +113,7 @@ function CreateChat({ show, onHide }: ProfileProps) {
                   {letter}
                 </h4>
                 {sortedUsers[letter].map((user) => (
-                  <SingleUser key={user._id} userInfo={user} />
+                  <SingleUser key={user._id} userInfo={user} onHide={onHide} />
                 ))}
               </div>
             ))}
