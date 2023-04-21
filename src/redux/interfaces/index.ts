@@ -39,7 +39,7 @@ export interface UserState {
 export interface Chat {
   _id: string;
   members: User[];
-  messages: Message[];
+  messages?: Message[];
 }
 
 export interface setUserInfo {
@@ -127,4 +127,9 @@ export interface UserRegistration {
 export interface UserLogin {
   email: string;
   password: string;
+}
+
+export interface addMessage{
+  type: "ADD_MESSAGE";
+  payload: Message;
 }

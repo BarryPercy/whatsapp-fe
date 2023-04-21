@@ -10,6 +10,7 @@ export const SET_USER_AVATAR = "SET_USER_AVATAR";
 export const GET_USERS_INFO = "GET_USERS_INFO";
 export const OTHER_USER = "OTHER_USER";
 export const GET_USER_INFO = "GET_USER_INFO";
+export const ADD_MESSAGE = "ADD_MESSAGE"
 
 export const setUserInfo =
   (accessToken: string): AppThunk =>
@@ -142,6 +143,7 @@ export const newMessage =
       if (response.status === 200) {
         console.log("chat exists");
         const res = await response.json();
+        console.log("200res",res)
         dispatch({
           type: "SET_HISTORY",
           payload: {
@@ -149,15 +151,17 @@ export const newMessage =
             history: res.messages,
           },
         });
+        console.log("active")
         dispatch({
           type: "SET_ACTIVE_CHAT",
-          payload: {
-            chatId: res.chatId,
-          },
+          payload: res.chatId,
         });
       } else if (response.status === 201) {
         const res = await response.json();
-        console.log("new message");
+        dispatch({
+          type:"SET_ACTIVE_CHAT",
+          payload:res.chatId
+        })
         dispatch({
           type: "NEW_MESSAGE",
           payload: {
@@ -227,3 +231,35 @@ export const uploadUserAvatar =
       console.log(error);
     }
   };
+
+export const addMessage = (message: Message, chatId:string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const accessToken = JSON.parse(
+        localStorage.getItem("accessToken")!.toString()
+      );
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND}/chats/addMessage`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message,
+            chatId
+          }),
+        }
+      );
+      if (response.ok) {
+        const user = await response.json();
+        dispatch({
+          type: ADD_MESSAGE,
+          payload: {message},
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+};

@@ -1,15 +1,28 @@
 import { User } from "../redux/interfaces";
 import "../css/NewChat.css";
 import "../css/SingleUser.css";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { whatsAppState } from "../redux/interfaces";
+import { OTHER_USER, newMessage } from "../redux/actions";
 
 interface IProps {
   userInfo: User;
 }
 
+
 function SingleUser(props: IProps) {
+  const dispatch = useAppDispatch();
+  const theUser = useAppSelector((state) => state.whatsApp as whatsAppState).userInfo
+  const handleClick = () => {
+      dispatch({
+        type: OTHER_USER,
+        payload: props.userInfo
+      })
+      dispatch(newMessage(props.userInfo, theUser))
+    }
   return (
     <>
-      <div className="my-2 singleChat">
+      <div className="my-2 singleChat" onClick={handleClick}>
         <div className="d-flex align-items-center ml-3 my-2">
           <div className="align-items-center justify-content-center img-container">
             <img
