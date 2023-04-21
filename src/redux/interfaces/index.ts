@@ -77,7 +77,9 @@ export interface Message {
     text?: string;
     media?: string;
   };
-  timestamp: number;
+  timestamp?: number;
+  createdAt?:Date;
+  updatedAt?:Date;
 }
 
 export interface User {

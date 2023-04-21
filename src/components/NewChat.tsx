@@ -17,7 +17,6 @@ function NewChat(props: IProps) {
     }
   });
   const leftUser = props.allUsers.find((user) => user._id === leftUserId)!;
-  console.log(leftUser);
   return (
     <>
       {
@@ -36,11 +35,7 @@ function NewChat(props: IProps) {
               </div>
               <div id="time">
                 <span>
-                  {props.chatInfo.messages.length > 0
-                    ? props.chatInfo.messages[
-                        props.chatInfo.messages.length - 1
-                      ].timestamp.toLocaleString()
-                    : timestamp}
+                  {timestamp}
                 </span>
               </div>
             </div>

@@ -17,7 +17,7 @@ function Sidebar() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setChats(accessToken));
+    dispatch(setChats());
     dispatch(setUserInfo(accessToken));
   }, [accessToken, dispatch]);
 
@@ -25,22 +25,6 @@ function Sidebar() {
     useAppSelector(
       (state: { whatsApp: whatsAppState }) => state.whatsApp.chats.list
     ) || [];
-  allChats.sort((a, b) => {
-    const lastMsgA = a.messages[a.messages.length - 1];
-    const lastMsgB = b.messages[b.messages.length - 1];
-    if (lastMsgA && lastMsgB) {
-      return (
-        new Date(lastMsgB.timestamp).getTime() -
-        new Date(lastMsgA.timestamp).getTime()
-      );
-    } else if (lastMsgA) {
-      return -1;
-    } else if (lastMsgB) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
   const theUser = useAppSelector(
     (state: { whatsApp: whatsAppState }) => state.whatsApp
   );
