@@ -1,17 +1,17 @@
 .sidebar {
   padding: 0;
-  margin: 0;
-  width: 21.15rem;
 }
 .container.sidebar > .container {
   padding: 0;
+  margin: 0;
   background-color: #111b21;
   width: 21.1rem;
   height: 100vh;
   border-radius: 0px;
+  border: 0.1rem solid;
 }
 .container.sidebar > .container > .row {
-  width: 104%;
+  width: 100%;
   position: relative;
   color: white;
   top: auto;
@@ -138,4 +138,12 @@ input#chatSearch:focus ~ .bi.bi-arrow-right {
   color: rgb(143, 143, 143);
   margin-left: 1.5rem;
   margin-top: 1rem;
+}
+div .my-2.singleChat {
+  border: 1px solid;
+  border-left: none;
+  border-right: none;
+  height: 4.55rem;
+  position: relative;
+  cursor: pointer;
 }

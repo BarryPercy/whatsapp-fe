@@ -50,7 +50,7 @@ function Sidebar() {
     <>
       <Container className="sidebar">
         <Container>
-          <Row>
+          <Row className="ml-0">
             <div id="sideAvatar">
               <i
                 className="bi bi-person-circle"
